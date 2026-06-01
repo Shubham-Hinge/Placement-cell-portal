@@ -10,52 +10,54 @@ export async function POST(req: Request) {
     await connectDB();
 
     const body = await req.json();
-
     const { email, password } = body;
 
-    const user = await User.findOne({
-      email,
-    });
+    if (!email || !password) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Email and password are required",
+        },
+        { status: 400 }
+      );
+    }
+
+    const user = await User.findOne({ email });
 
     if (!user) {
       return NextResponse.json(
         {
           success: false,
-          message:
-            "Invalid credentials",
+          message: "Invalid credentials",
         },
         { status: 401 }
       );
     }
 
-    const isMatch =
-      await bcrypt.compare(
-        password,
-        user.password
-      );
+    const isMatch = await bcrypt.compare(
+      password,
+      user.password
+    );
 
     if (!isMatch) {
       return NextResponse.json(
         {
           success: false,
-          message:
-            "Invalid credentials",
+          message: "Invalid credentials",
         },
         { status: 401 }
       );
     }
 
-    const token =
-      generateToken({
-        userId: user._id,
-        email: user.email,
-        role: user.role,
-      });
+    const token = generateToken({
+      userId: user._id.toString(),
+      email: user.email,
+      role: user.role,
+    });
 
-    return NextResponse.json(
+    const response = NextResponse.json(
       {
         success: true,
-        token,
         user: {
           id: user._id,
           name: user.name,
@@ -65,14 +67,23 @@ export async function POST(req: Request) {
       },
       { status: 200 }
     );
+
+    response.cookies.set("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      path: "/",
+      maxAge: 60 * 60 * 24 * 7, // 7 days
+    });
+
+    return response;
   } catch (error) {
-    console.error(error);
+    console.error("Login Error:", error);
 
     return NextResponse.json(
       {
         success: false,
-        message:
-          "Internal Server Error",
+        message: "Internal Server Error",
       },
       { status: 500 }
     );

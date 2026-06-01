@@ -25,9 +25,12 @@ export async function POST(req: Request) {
       );
     }
 
-    const { name, email, password, role } = validation.data;
+    const { name, email, password, role } =
+      validation.data;
 
-    const existingUser = await User.findOne({ email });
+    const existingUser = await User.findOne({
+      email: email.toLowerCase(),
+    });
 
     if (existingUser) {
       return NextResponse.json(
@@ -39,11 +42,14 @@ export async function POST(req: Request) {
       );
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(
+      password,
+      10
+    );
 
     const user = await User.create({
       name,
-      email,
+      email: email.toLowerCase(),
       password: hashedPassword,
       role,
     });
@@ -51,7 +57,8 @@ export async function POST(req: Request) {
     return NextResponse.json(
       {
         success: true,
-        message: "User registered successfully",
+        message:
+          "User registered successfully. Please login.",
         data: {
           id: user._id,
           name: user.name,
