@@ -6,23 +6,30 @@ import User from "@/models/User";
 import { generateToken } from "@/lib/auth";
 
 export async function POST(req: Request) {
+  console.log("LOGIN ROUTE HIT");
+
   try {
+    
     await connectDB();
 
     const body = await req.json();
+
     const { email, password } = body;
 
     if (!email || !password) {
       return NextResponse.json(
         {
           success: false,
-          message: "Email and password are required",
+          message:
+            "Email and password are required",
         },
         { status: 400 }
       );
     }
 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({
+      email: email.toLowerCase(),
+    });
 
     if (!user) {
       return NextResponse.json(
@@ -31,6 +38,27 @@ export async function POST(req: Request) {
           message: "Invalid credentials",
         },
         { status: 401 }
+      );
+    }
+
+    if (!user.isActive) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Account disabled",
+        },
+        { status: 403 }
+      );
+    }
+
+    if (!user.emailVerified) {
+      return NextResponse.json(
+        {
+          success: false,
+          message:
+            "Please verify your email first",
+        },
+        { status: 403 }
       );
     }
 
@@ -48,6 +76,9 @@ export async function POST(req: Request) {
         { status: 401 }
       );
     }
+
+    user.lastLogin = new Date();
+    await user.save();
 
     const token = generateToken({
       userId: user._id.toString(),
@@ -68,22 +99,34 @@ export async function POST(req: Request) {
       { status: 200 }
     );
 
-    response.cookies.set("token", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
-      path: "/",
-      maxAge: 60 * 60 * 24 * 7, // 7 days
-    });
+   response.cookies.set({
+  name: "token",
+  value: token,
+  httpOnly: true,
+  secure: false,
+  sameSite: "lax",
+  path: "/",
+  maxAge: 60 * 60 * 24 * 7,
+});
 
+console.log("TOKEN CREATED:", token);
+ 
+console.log("LOGIN SUCCESS");
+console.log("USER:", user.email);
+console.log("ROLE:", user.role);
+console.log("TOKEN:", token);
     return response;
   } catch (error) {
-    console.error("Login Error:", error);
+    console.error(
+      "Login Error:",
+      error
+    );
 
     return NextResponse.json(
       {
         success: false,
-        message: "Internal Server Error",
+        message:
+          "Internal Server Error",
       },
       { status: 500 }
     );

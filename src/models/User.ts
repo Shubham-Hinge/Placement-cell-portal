@@ -1,4 +1,8 @@
-import mongoose, { Schema, models, model } from "mongoose";
+import mongoose, {
+  Schema,
+  models,
+  model,
+} from "mongoose";
 
 const UserSchema = new Schema(
   {
@@ -6,6 +10,8 @@ const UserSchema = new Schema(
       type: String,
       required: true,
       trim: true,
+      minlength: 2,
+      maxlength: 100,
     },
 
     email: {
@@ -13,6 +19,7 @@ const UserSchema = new Schema(
       required: true,
       unique: true,
       lowercase: true,
+      trim: true,
     },
 
     password: {
@@ -22,8 +29,35 @@ const UserSchema = new Schema(
 
     role: {
       type: String,
-      enum: ["student", "company", "admin"],
+      enum: [
+        "student",
+        "company",
+        "admin",
+      ],
       default: "student",
+    },
+
+    profileImage: {
+      type: String,
+      default: "",
+    },
+
+    resetPasswordToken: {
+      type: String,
+      default: "",
+    },
+
+    resetPasswordExpires: {
+      type: Date,
+    },
+
+    isActive: {
+      type: Boolean,
+      default: true,
+    },
+
+    lastLogin: {
+      type: Date,
     },
   },
   {
@@ -31,6 +65,7 @@ const UserSchema = new Schema(
   }
 );
 
-const User = models.User || model("User", UserSchema);
+const User =
+  models.User || model("User", UserSchema);
 
 export default User;

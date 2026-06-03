@@ -1,14 +1,17 @@
 import jwt from "jsonwebtoken";
 
-const JWT_SECRET =
-  process.env.JWT_SECRET!;
+export interface TokenPayload {
+  userId: string;
+  email: string;
+  role: string;
+}
 
 export function generateToken(
-  payload: any
-) {
+  payload: TokenPayload
+): string {
   return jwt.sign(
     payload,
-    JWT_SECRET,
+    process.env.JWT_SECRET as string,
     {
       expiresIn: "7d",
     }
@@ -17,13 +20,22 @@ export function generateToken(
 
 export function verifyToken(
   token: string
-) {
+): TokenPayload | null {
   try {
-    return jwt.verify(
+    const decoded = jwt.verify(
       token,
-      JWT_SECRET
+      process.env.JWT_SECRET as string
     );
-  } catch {
+
+    console.log("JWT VERIFIED:", decoded);
+
+    return decoded as TokenPayload;
+  } catch (error) {
+    console.error(
+      "JWT VERIFY ERROR:",
+      error
+    );
+
     return null;
   }
 }

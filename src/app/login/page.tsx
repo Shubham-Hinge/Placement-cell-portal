@@ -1,11 +1,8 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import  { useState } from "react";
 
 export default function LoginPage() {
-  const router = useRouter();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -17,51 +14,63 @@ export default function LoginPage() {
 
     try {
       setLoading(true);
+const res = await fetch(
+  "/api/auth/login",
+  {
+    method: "POST",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email,
+      password,
+    }),
+  }
+);
 
-      const res = await fetch(
-        "/api/auth/login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type":
-              "application/json",
-          },
-          body: JSON.stringify({
-            email,
-            password,
-          }),
-        }
-      );
+console.log("STATUS:", res.status);
+
+      
 
       const data = await res.json();
+       
+console.log("DATA:", data);
 
-      console.log(
-        "LOGIN RESPONSE:",
-        data
-      );
-
-      alert(
-        JSON.stringify(
-          data,
-          null,
-          2
-        )
-      );
 
       if (!data.success) {
         alert(data.message);
         return;
       }
 
-      router.push(
-        "/student/dashboard"
+      console.log(
+        "LOGIN SUCCESS",
+        data
       );
+
+      setTimeout(() => {
+        if (
+          data.user.role ===
+          "student"
+        ) {
+          window.location.href =
+            "/student/dashboard";
+        } else if (
+          data.user.role ===
+          "company"
+        ) {
+          window.location.href =
+            "/company/dashboard";
+        } else {
+          window.location.href =
+            "/admin/dashboard";
+        }
+      }, 500);
     } catch (error) {
       console.error(
         "Login Error:",
         error
       );
-
       alert("Login failed");
     } finally {
       setLoading(false);

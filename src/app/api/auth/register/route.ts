@@ -1,9 +1,12 @@
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
+import crypto from "crypto";
 
 import { connectDB } from "@/lib/mongodb";
 import User from "@/models/User";
+import VerificationToken from "@/models/VerificationToken";
 import { registerSchema } from "@/lib/validations";
+import { sendVerificationEmail } from "@/lib/mail";
 
 export async function POST(req: Request) {
   try {
@@ -11,70 +14,95 @@ export async function POST(req: Request) {
 
     const body = await req.json();
 
-    const validation = registerSchema.safeParse(body);
+    const validation =
+      registerSchema.safeParse(body);
 
     if (!validation.success) {
       return NextResponse.json(
         {
           success: false,
           message:
-            validation.error.issues[0]?.message ||
-            "Validation failed",
+            validation.error.issues[0]
+              ?.message,
         },
         { status: 400 }
       );
     }
 
-    const { name, email, password, role } =
-      validation.data;
+    const {
+      name,
+      email,
+      password,
+      role,
+    } = validation.data;
 
-    const existingUser = await User.findOne({
-      email: email.toLowerCase(),
-    });
+    const existingUser =
+      await User.findOne({
+        email: email.toLowerCase(),
+      });
 
     if (existingUser) {
       return NextResponse.json(
         {
           success: false,
-          message: "Email already registered",
+          message:
+            "Email already registered",
         },
         { status: 409 }
       );
     }
 
-    const hashedPassword = await bcrypt.hash(
-      password,
-      10
-    );
+    const hashedPassword =
+      await bcrypt.hash(password, 12);
 
-    const user = await User.create({
+    await User.create({
       name,
-      email: email.toLowerCase(),
-      password: hashedPassword,
+      email:
+        email.toLowerCase(),
+      password:
+        hashedPassword,
       role,
+      emailVerified: false,
     });
+
+    const token =
+      crypto.randomBytes(32)
+        .toString("hex");
+
+    await VerificationToken.create({
+      email:
+        email.toLowerCase(),
+      token,
+      expiresAt: new Date(
+        Date.now() +
+          1000 *
+            60 *
+            60 *
+            24
+      ),
+    });
+
+    await sendVerificationEmail(
+      email,
+      token
+    );
 
     return NextResponse.json(
       {
         success: true,
         message:
-          "User registered successfully. Please login.",
-        data: {
-          id: user._id,
-          name: user.name,
-          email: user.email,
-          role: user.role,
-        },
+          "Registration successful. Please verify your email.",
       },
       { status: 201 }
     );
   } catch (error) {
-    console.error("Register Error:", error);
+    console.error(error);
 
     return NextResponse.json(
       {
         success: false,
-        message: "Internal Server Error",
+        message:
+          "Internal Server Error",
       },
       { status: 500 }
     );
