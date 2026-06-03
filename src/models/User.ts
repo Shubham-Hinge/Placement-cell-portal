@@ -37,6 +37,13 @@ const UserSchema = new Schema(
       default: "student",
     },
 
+
+emailVerified: {
+  type: Boolean,
+  default: false,
+},
+
+
     profileImage: {
       type: String,
       default: "",

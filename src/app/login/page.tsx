@@ -39,14 +39,29 @@ console.log("DATA:", data);
 
 
       if (!data.success) {
-        alert(data.message);
-        return;
-      }
+  alert(data.message);
+  return;
+}
 
-      console.log(
-        "LOGIN SUCCESS",
-        data
-      );
+localStorage.setItem(
+  "userId",
+  data.user.id
+);
+
+localStorage.setItem(
+  "userName",
+  data.user.name
+);
+
+localStorage.setItem(
+  "role",
+  data.user.role
+);
+
+console.log(
+  "LOGIN SUCCESS",
+  data
+);
 
       setTimeout(() => {
         if (
@@ -110,6 +125,15 @@ console.log("DATA:", data);
           }
           required
         />
+
+<div className="text-right">
+  <a
+    href="/forgot-password"
+    className="text-blue-600"
+  >
+    Forgot Password?
+  </a>
+</div>
 
         <button
           type="submit"
