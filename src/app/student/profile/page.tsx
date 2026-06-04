@@ -23,6 +23,7 @@ export default function StudentProfilePage() {
       portfolio: "",
       skills: "",
       resumeUrl: "",
+      profileImage: "",
     });
 useEffect(() => {
   const loadProfile = async () => {
@@ -46,46 +47,49 @@ useEffect(() => {
         data.profile
       ) {
         setForm({
-          fullName:
-            data.profile.fullName ||
-            "",
-          phone:
-            data.profile.phone ||
-            "",
-          college:
-            data.profile.college ||
-            "",
-          course:
-            data.profile.course ||
-            "",
-          specialization:
-            data.profile
-              .specialization ||
-            "",
-          graduationYear:
-            data.profile
-              .graduationYear
-              ?.toString() || "",
-          cgpa:
-            data.profile.cgpa
-              ?.toString() || "",
-          github:
-            data.profile.github ||
-            "",
-          linkedin:
-            data.profile.linkedin ||
-            "",
-          portfolio:
-            data.profile
-              .portfolio || "",
-          skills:
-            data.profile.skills?.join(
-              ", "
-            ) || "",
-          resumeUrl:
-            data.profile
-              .resumeUrl || "",
-        });
+  fullName:
+    data.profile?.fullName ||
+    "",
+  phone:
+    data.profile?.phone ||
+    "",
+  college:
+    data.profile?.college ||
+    "",
+  course:
+    data.profile?.course ||
+    "",
+  specialization:
+    data.profile
+      ?.specialization ||
+    "",
+  graduationYear:
+    data.profile
+      ?.graduationYear
+      ?.toString() || "",
+  cgpa:
+    data.profile?.cgpa
+      ?.toString() || "",
+  github:
+    data.profile?.github ||
+    "",
+  linkedin:
+    data.profile?.linkedin ||
+    "",
+  portfolio:
+    data.profile
+      ?.portfolio || "",
+  skills:
+    data.profile?.skills?.join(
+      ", "
+    ) || "",
+  resumeUrl:
+    data.profile
+      ?.resumeUrl || "",
+  profileImage:
+    data.profile
+      ?.profileImage || "",
+});
       }
     } catch (error) {
       console.error(
@@ -225,9 +229,32 @@ useEffect(() => {
     <div className="min-h-screen bg-gray-100 p-8">
       <div className="max-w-4xl mx-auto bg-white rounded-xl shadow p-8">
 
-        <h1 className="text-3xl font-bold mb-8">
-          Student Profile
-        </h1>
+        <div className="mb-6 flex items-center gap-4">
+
+  {form.profileImage && (
+    <img
+      src={form.profileImage}
+      alt="Profile"
+      className="
+        w-24
+        h-24
+        rounded-full
+        object-cover
+      "
+    />
+  )}
+
+  <div>
+    <h2 className="text-2xl font-bold">
+      {form.fullName || "Student"}
+    </h2>
+
+    <p className="text-gray-500">
+      Student Profile
+    </p>
+  </div>
+
+</div>
 
        <div className="grid md:grid-cols-2 gap-5">
 
@@ -322,7 +349,82 @@ useEffect(() => {
     className="border p-3 rounded w-full"
   />
 </div>
+<div className="mb-6">
 
+  {form.profileImage && (
+    <img
+      src={
+        form.profileImage
+      }
+      alt="Profile"
+      className="
+        w-32
+        h-32
+        rounded-full
+        object-cover
+        mb-4
+      "
+    />
+  )}
+
+  <input
+    type="file"
+    accept="image/*"
+    onChange={async (
+      e
+    ) => {
+      const file =
+        e.target.files?.[0];
+
+      if (!file)
+        return;
+
+      const formData =
+        new FormData();
+
+      formData.append(
+        "file",
+        file
+      );
+
+      formData.append(
+        "userId",
+        localStorage.getItem(
+          "userId"
+        ) || ""
+      );
+
+      const res =
+        await fetch(
+          "/api/student/profile-image",
+          {
+            method:
+              "POST",
+            body:
+              formData,
+          }
+        );
+
+      const data =
+        await res.json();
+
+      if (
+        data.success
+      ) {
+        setForm(
+          (
+            prev
+          ) => ({
+            ...prev,
+            profileImage:
+              data.imageUrl,
+          })
+        );
+      }
+    }}
+  />
+
+</div>
         <div className="mt-5">
           <label className="block mb-2 font-medium">
             Upload Resume

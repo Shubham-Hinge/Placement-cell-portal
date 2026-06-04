@@ -73,6 +73,10 @@ const StudentProfileSchema =
         default: "",
       },
 
+      profileImage: {
+  type: String,
+  default: "",
+},
       profileCompleted: {
         type: Boolean,
         default: false,

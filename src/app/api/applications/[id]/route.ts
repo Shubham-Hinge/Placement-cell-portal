@@ -3,6 +3,12 @@ import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/mongodb";
 import Application from "@/models/Application";
 
+import {
+  sendShortlistedEmail,
+  sendSelectedEmail,
+  sendRejectedEmail,
+} from "@/lib/mail";
+
 export async function PATCH(
   req: Request,
   {
@@ -34,7 +40,56 @@ export async function PATCH(
         {
           new: true,
         }
+      )
+        .populate(
+          "studentId"
+        )
+        .populate("jobId");
+
+    if (!application) {
+      return NextResponse.json(
+        {
+          success: false,
+          message:
+            "Application not found",
+        },
+        { status: 404 }
       );
+    }
+
+    const student =
+      application.studentId as any;
+
+    if (
+      student?.email
+    ) {
+      if (
+        status ===
+        "Shortlisted"
+      ) {
+        await sendShortlistedEmail(
+          student.email
+        );
+      }
+
+      if (
+        status ===
+        "Selected"
+      ) {
+        await sendSelectedEmail(
+          student.email
+        );
+      }
+
+      if (
+        status ===
+        "Rejected"
+      ) {
+        await sendRejectedEmail(
+          student.email
+        );
+      }
+    }
 
     return NextResponse.json({
       success: true,

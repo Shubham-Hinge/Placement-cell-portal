@@ -44,7 +44,24 @@ export default function CompanyDashboard() {
             Post a new job
           </p>
         </Link>
+<Link
+  href="/company/jobs"
+  className="
+    bg-white
+    shadow
+    rounded
+    p-6
+    block
+  "
+>
+  <h2 className="font-bold text-xl">
+    Manage Jobs
+  </h2>
 
+  <p>
+    View and delete jobs
+  </p>
+</Link>
         <Link
           href="/company/applications"
           className="

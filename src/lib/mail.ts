@@ -7,6 +7,41 @@ const transporter = nodemailer.createTransport({
     pass: process.env.EMAIL_PASS,
   },
 });
+export async function sendShortlistedEmail(
+  email: string
+) {
+  await transporter.sendMail({
+    to: email,
+    subject:
+      "Application Shortlisted",
+    html:
+      "<h2>Congratulations!</h2><p>Your application has been shortlisted.</p>",
+  });
+}
+
+export async function sendSelectedEmail(
+  email: string
+) {
+  await transporter.sendMail({
+    to: email,
+    subject:
+      "Application Selected",
+    html:
+      "<h2>Congratulations!</h2><p>You have been selected.</p>",
+  });
+}
+
+export async function sendRejectedEmail(
+  email: string
+) {
+  await transporter.sendMail({
+    to: email,
+    subject:
+      "Application Update",
+    html:
+      "<h2>Application Update</h2><p>Your application was not selected.</p>",
+  });
+}
 
 export async function sendVerificationEmail(
   email: string,
