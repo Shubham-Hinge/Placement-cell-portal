@@ -38,14 +38,14 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 # Placement Cell Portal
 
-A full-stack Placement Cell Portal built using Next.js, TypeScript, MongoDB, JWT Authentication, Cloudinary, and Nodemailer.
+A Full Stack Placement Cell Portal built using Next.js, TypeScript, MongoDB, JWT Authentication, Cloudinary, and Nodemailer.
 
 ## Features
 
-### Authentication
+### Authentication Module
 
 * User Registration
-* User Login
+* Secure Login
 * JWT Authentication
 * Role-Based Access Control
 * Email Verification
@@ -55,40 +55,50 @@ A full-stack Placement Cell Portal built using Next.js, TypeScript, MongoDB, JWT
 ### Student Module
 
 * Student Dashboard
-* Student Profile Management
+* Profile Management
+* Profile Image Upload
 * Resume Upload
 * Resume Viewing
 * Browse Available Jobs
 * Apply for Jobs
-* Track Application Status
+* View Application Status
 
 ### Company Module
 
 * Company Dashboard
 * Create Job Posts
+* Manage Posted Jobs
 * View Applicants
 * View Student Resumes
-* Manage Applications
 * Shortlist Candidates
 * Reject Candidates
 * Select Candidates
 
-### Job Management
-
-* Create Jobs
-* View Jobs
-* Active Job Listings
-* Job Applications
-
 ### Application Management
 
-* Apply for Jobs
-* Track Status
-* Shortlisted
-* Rejected
-* Selected
+* Job Applications
+* Application Tracking
+* Status Updates
+* Email Notifications
 
-## Tech Stack
+### Admin Module
+
+* Admin Dashboard
+* Total Users Statistics
+* Total Students
+* Total Companies
+* Total Jobs
+* Total Applications
+* Total Selected Students
+
+### Analytics
+
+* Placement Analytics
+* Placement Rate
+* Application Statistics
+* Selection Statistics
+
+## Technology Stack
 
 ### Frontend
 
@@ -108,7 +118,7 @@ A full-stack Placement Cell Portal built using Next.js, TypeScript, MongoDB, JWT
 * JWT
 * bcryptjs
 
-### Email Service
+### Email Services
 
 * Nodemailer
 * Gmail SMTP
@@ -116,6 +126,38 @@ A full-stack Placement Cell Portal built using Next.js, TypeScript, MongoDB, JWT
 ### File Storage
 
 * Cloudinary
+
+## Project Structure
+
+```text
+src/
+├── app/
+│   ├── api/
+│   │   ├── auth/
+│   │   ├── admin/
+│   │   ├── jobs/
+│   │   ├── applications/
+│   │   ├── company/
+│   │   └── student/
+│   │
+│   ├── login/
+│   ├── register/
+│   ├── admin/
+│   ├── company/
+│   └── student/
+│
+├── models/
+│   ├── User.ts
+│   ├── Job.ts
+│   ├── Application.ts
+│   └── StudentProfile.ts
+│
+├── lib/
+│   ├── auth.ts
+│   ├── mongodb.ts
+│   ├── cloudinary.ts
+│   └── mail.ts
+```
 
 ## Environment Variables
 
@@ -152,53 +194,63 @@ npm install
 npm run dev
 ```
 
-## Project Structure
+## User Roles
 
-```text
-src/
-├── app/
-│   ├── api/
-│   ├── login/
-│   ├── register/
-│   ├── student/
-│   ├── company/
-│   └── admin/
-│
-├── models/
-│   ├── User.ts
-│   ├── StudentProfile.ts
-│   ├── Job.ts
-│   ├── Application.ts
-│
-├── lib/
-│   ├── mongodb.ts
-│   ├── auth.ts
-│   ├── cloudinary.ts
-│   └── mail.ts
-```
+### Student
 
-## Current Status
+* Manage Profile
+* Upload Resume
+* Upload Profile Image
+* Apply for Jobs
+* Track Applications
 
-Completed:
+### Company
 
-* Authentication System
-* Email Verification
-* Password Reset
-* Student Profile Module
-* Resume Upload System
-* Job Management Module
-* Application Management Module
-* Company Applicant Management
+* Post Jobs
+* Manage Jobs
+* Review Applications
+* Select Candidates
 
-In Progress:
+### Admin
 
-* Admin Dashboard
-* Analytics
-* Placement Reports
+* Monitor Portal Activity
+* View Statistics
+* Track Placements
+* Analyze Performance
+
+## Notifications
+
+Students receive email notifications when:
+
+* Shortlisted
+* Selected
+* Rejected
+
+## Analytics
+
+Admin can monitor:
+
+* Total Users
+* Total Students
+* Total Companies
+* Total Jobs
+* Total Applications
+* Placement Rate
+* Selected Students
+
+## Future Enhancements
+
+* Interview Scheduling
+* Company Reviews
+* Placement Reports Export
+* Advanced Analytics
+* Chat System
+* Mobile Application
 
 ## Author
 
 Shubham Hinge
 
 MSc Computer Science
+
 Placement Cell Portal Project
