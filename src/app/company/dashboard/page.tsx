@@ -44,24 +44,28 @@ export default function CompanyDashboard() {
             Post a new job
           </p>
         </Link>
-<Link
-  href="/company/jobs"
-  className="
-    bg-white
-    shadow
-    rounded
-    p-6
-    block
-  "
->
-  <h2 className="font-bold text-xl">
-    Manage Jobs
-  </h2>
 
-  <p>
-    View and delete jobs
-  </p>
-</Link>
+        <Link
+          href="/company/jobs"
+          className="
+            bg-white
+            shadow
+            rounded
+            p-6
+            block
+            hover:shadow-lg
+            transition
+          "
+        >
+          <h2 className="font-bold text-xl">
+            Manage Jobs
+          </h2>
+
+          <p className="mt-2">
+            View update & delete jobs
+          </p>
+        </Link>
+
         <Link
           href="/company/applications"
           className="
@@ -83,12 +87,16 @@ export default function CompanyDashboard() {
           </p>
         </Link>
 
-        <div
+        <Link
+          href="/company/analytics"
           className="
             bg-white
             shadow
             rounded
             p-6
+            block
+            hover:shadow-lg
+            transition
           "
         >
           <h2 className="font-bold text-xl">
@@ -96,9 +104,9 @@ export default function CompanyDashboard() {
           </h2>
 
           <p className="mt-2">
-            Coming Soon
+            View Company Statistics
           </p>
-        </div>
+        </Link>
 
       </div>
 

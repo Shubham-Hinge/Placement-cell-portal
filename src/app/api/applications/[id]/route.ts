@@ -7,6 +7,7 @@ import {
   sendShortlistedEmail,
   sendSelectedEmail,
   sendRejectedEmail,
+  sendInterviewEmail,
 } from "@/lib/mail";
 
 export async function PATCH(
@@ -28,8 +29,12 @@ export async function PATCH(
     const body =
       await req.json();
 
-    const { status } =
-      body;
+    const {
+      status,
+      interviewDate,
+      interviewTime,
+      meetingLink,
+    } = body;
 
     const application =
       await Application.findByIdAndUpdate(
@@ -59,6 +64,20 @@ export async function PATCH(
 
     const student =
       application.studentId as any;
+
+    if (
+      interviewDate &&
+      interviewTime &&
+      meetingLink &&
+      student?.email
+    ) {
+      await sendInterviewEmail(
+        student.email,
+        interviewDate,
+        interviewTime,
+        meetingLink
+      );
+    }
 
     if (
       student?.email

@@ -102,22 +102,61 @@ export default function ApplicationsPage() {
                 </p>
 
                 <p>
-                  Status:
-                  {" "}
-                  <span className="font-bold">
-                    {
-                      application.status
-                    }
-                  </span>
-                </p>
+  Status:
+  {" "}
+  <span className="font-bold">
+    {
+      application.status
+    }
+  </span>
+</p>
 
-                <p>
-                  Applied:
-                  {" "}
-                  {new Date(
-                    application.createdAt
-                  ).toLocaleDateString()}
-                </p>
+<p>
+  Applied:
+  {" "}
+  {new Date(
+    application.createdAt
+  ).toLocaleDateString()}
+</p>
+
+{application.interviewDate && (
+  <div className="mt-4 border-t pt-4">
+
+    <h3 className="font-bold text-blue-600">
+      Interview Scheduled
+    </h3>
+
+    <p>
+      Date:
+      {" "}
+      {new Date(
+        application.interviewDate
+      ).toLocaleDateString()}
+    </p>
+
+    <p>
+      Time:
+      {" "}
+      {application.interviewTime}
+    </p>
+
+    <a
+      href={
+        application.meetingLink
+      }
+      target="_blank"
+      rel="noreferrer"
+      className="
+        text-blue-600
+        underline
+      "
+    >
+      Join Interview
+    </a>
+
+  </div>
+)}
+  
 
               </div>
             )

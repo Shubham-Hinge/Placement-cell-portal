@@ -204,6 +204,43 @@ Campus Placement Portal Team
     `,
   });
 }
+export async function sendInterviewEmail(
+  email: string,
+  interviewDate: string,
+  interviewTime: string,
+  meetingLink: string
+) {
+  await transporter.sendMail({
+    to: email,
+
+    subject:
+      "Interview Scheduled",
+
+    html: `
+      <h2>Interview Scheduled</h2>
+
+      <p>Your interview has been scheduled.</p>
+
+      <p>
+        <strong>Date:</strong>
+        ${interviewDate}
+      </p>
+
+      <p>
+        <strong>Time:</strong>
+        ${interviewTime}
+      </p>
+
+      <p>
+        <strong>Meeting Link:</strong>
+        <a href="${meetingLink}">
+          Join Interview
+        </a>
+      </p>
+    `,
+  });
+}
+
 export async function sendResetPasswordEmail(
   email: string,
   token: string

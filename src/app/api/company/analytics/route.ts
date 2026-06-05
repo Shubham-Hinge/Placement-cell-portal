@@ -2,12 +2,8 @@ import { NextResponse } from "next/server";
 import mongoose from "mongoose";
 
 import { connectDB } from "@/lib/mongodb";
-
-import "@/models/User";
-import "@/models/Job";
-
-import Application from "@/models/Application";
 import Job from "@/models/Job";
+import Application from "@/models/Application";
 
 export async function GET(
   req: Request
@@ -47,35 +43,55 @@ export async function GET(
         (job) => job._id
       );
 
-    if (
-      jobIds.length === 0
-    ) {
-      return NextResponse.json({
-        success: true,
-        applications: [],
-      });
-    }
-
     const applications =
       await Application.find({
         jobId: {
           $in: jobIds,
         },
-      })
-        .populate(
-          "studentId"
-        )
-        .populate(
-          "jobId"
-        );
+      });
+
+    const analytics = {
+      totalJobs:
+        jobs.length,
+
+      activeJobs:
+        jobs.filter(
+          (job) =>
+            job.isActive
+        ).length,
+
+      totalApplications:
+        applications.length,
+
+      shortlisted:
+        applications.filter(
+          (app) =>
+            app.status ===
+            "Shortlisted"
+        ).length,
+
+      selected:
+        applications.filter(
+          (app) =>
+            app.status ===
+            "Selected"
+        ).length,
+
+      rejected:
+        applications.filter(
+          (app) =>
+            app.status ===
+            "Rejected"
+        ).length,
+    };
 
     return NextResponse.json({
       success: true,
-      applications,
+      analytics,
     });
   } catch (error) {
     console.error(
-      "Company Applications Error:",
+      "Analytics Error:",
       error
     );
 
@@ -83,7 +99,7 @@ export async function GET(
       {
         success: false,
         message:
-          "Failed to fetch applicants",
+          "Failed to load analytics",
       },
       { status: 500 }
     );

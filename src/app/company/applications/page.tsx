@@ -11,6 +11,21 @@ export default function CompanyApplicationsPage() {
     setApplications,
   ] = useState<any[]>([]);
 
+  const [
+    interviewDate,
+    setInterviewDate,
+  ] = useState("");
+
+  const [
+    interviewTime,
+    setInterviewTime,
+  ] = useState("");
+
+  const [
+    meetingLink,
+    setMeetingLink,
+  ] = useState("");
+
   const updateStatus =
     async (
       applicationId: string,
@@ -44,6 +59,45 @@ export default function CompanyApplicationsPage() {
         console.error(
           error
         );
+      }
+    };
+
+  const scheduleInterview =
+    async (
+      applicationId: string
+    ) => {
+      const response =
+        await fetch(
+          `/api/applications/${applicationId}`,
+          {
+            method: "PATCH",
+
+            headers: {
+              "Content-Type":
+                "application/json",
+            },
+
+            body: JSON.stringify({
+              status:
+                "Shortlisted",
+              interviewDate,
+              interviewTime,
+              meetingLink,
+            }),
+          }
+        );
+
+      const data =
+        await response.json();
+
+      if (
+        data.success
+      ) {
+        alert(
+          "Interview Scheduled"
+        );
+
+        window.location.reload();
       }
     };
 
@@ -126,6 +180,79 @@ export default function CompanyApplicationsPage() {
                   app.status
                 }
               </p>
+
+              <div className="mt-4 space-y-2">
+                <input
+                  type="date"
+                  value={
+                    interviewDate
+                  }
+                  onChange={(e) =>
+                    setInterviewDate(
+                      e.target.value
+                    )
+                  }
+                  className="
+                    border
+                    p-2
+                    rounded
+                    w-full
+                  "
+                />
+
+                <input
+                  type="time"
+                  value={
+                    interviewTime
+                  }
+                  onChange={(e) =>
+                    setInterviewTime(
+                      e.target.value
+                    )
+                  }
+                  className="
+                    border
+                    p-2
+                    rounded
+                    w-full
+                  "
+                />
+
+                <input
+                  placeholder="Meeting Link"
+                  value={
+                    meetingLink
+                  }
+                  onChange={(e) =>
+                    setMeetingLink(
+                      e.target.value
+                    )
+                  }
+                  className="
+                    border
+                    p-2
+                    rounded
+                    w-full
+                  "
+                />
+
+                <button
+                  onClick={() =>
+                    scheduleInterview(
+                      app._id
+                    )
+                  }
+                  className="
+                    bg-blue-600
+                    text-white
+                    px-4
+                    py-2
+                    rounded
+                  "
+                >
+                  Schedule Interview
+                </button>
+              </div>
 
               <a
                 href={

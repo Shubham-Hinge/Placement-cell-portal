@@ -36,6 +36,19 @@ const ApplicationSchema =
         ],
         default: "Applied",
       },
+        interviewDate: {
+  type: Date,
+},
+
+interviewTime: {
+  type: String,
+  default: "",
+},
+
+meetingLink: {
+  type: String,
+  default: "",
+},
     },
     {
       timestamps: true,

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import {
   useEffect,
   useState,
@@ -82,13 +83,11 @@ export default function CompanyJobsPage() {
 
   return (
     <div className="p-10">
-
       <h1 className="text-3xl font-bold mb-8">
         Manage Jobs
       </h1>
 
       <div className="grid gap-5">
-
         {jobs.map(
           (job) => (
             <div
@@ -121,6 +120,18 @@ export default function CompanyJobsPage() {
               </p>
 
               <div className="flex gap-3 mt-4">
+                <Link
+                  href={`/company/jobs/edit/${job._id}`}
+                  className="
+                    bg-blue-600
+                    text-white
+                    px-4
+                    py-2
+                    rounded
+                  "
+                >
+                  Edit
+                </Link>
 
                 <button
                   onClick={() =>
@@ -138,15 +149,11 @@ export default function CompanyJobsPage() {
                 >
                   Delete
                 </button>
-
               </div>
-
             </div>
           )
         )}
-
       </div>
-
     </div>
   );
 }
