@@ -85,7 +85,8 @@ A Full Stack Placement Cell Portal built using Next.js, TypeScript, MongoDB, JWT
 
 * Admin Dashboard
 * Total Users Statistics
-* Total Students
+* Total Studen
+ts
 * Total Companies
 * Total Jobs
 * Total Applications
@@ -97,7 +98,6 @@ A Full Stack Placement Cell Portal built using Next.js, TypeScript, MongoDB, JWT
 * Placement Rate
 * Application Statistics
 * Selection Statistics
-
 ## Technology Stack
 
 ### Frontend
@@ -238,14 +238,52 @@ Admin can monitor:
 * Placement Rate
 * Selected Students
 
-## Future Enhancements
+## Database Models
+User
+Name
+Email
+Password
+Role
+Profile Image
+StudentProfile
+Personal Details
+Skills
+Resume URL
+Job
+Company Information
+Job Details
+Skills Required
+Job Type
+Application
+Student
+Job
+Resume
+Status
+Interview Date
+Interview Time
+Meeting Link
+Current Status
 
-* Interview Scheduling
-* Company Reviews
-* Placement Reports Export
-* Advanced Analytics
-* Chat System
-* Mobile Application
+Project Completion: 90%
+
+## Completed
+Authentication System
+Student Module
+Company Module
+Admin Dashboard
+Analytics Dashboard
+Email Notifications
+Interview Scheduling
+Resume Upload
+Profile Image Upload
+
+## Future Enhancements
+ 
+*Offer Letter Upload
+*Placement Reports (PDF)
+*Placement Reports (Excel)
+*Student Statistics Dashboard
+*Advanced Analytics Charts
 
 ## Author
 
