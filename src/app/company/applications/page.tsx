@@ -322,6 +322,64 @@ export default function CompanyApplicationsPage() {
                   Reject
                 </button>
               </div>
+                  <div className="mt-4">
+  <input
+    type="file"
+    accept=".pdf"
+    onChange={async (
+      e
+    ) => {
+      const file =
+        e.target.files?.[0];
+
+      if (!file)
+        return;
+
+      const formData =
+        new FormData();
+
+      formData.append(
+        "file",
+        file
+      );
+
+      formData.append(
+        "applicationId",
+        app._id
+      );
+
+      const res =
+        await fetch(
+          "/api/company/upload-offer-letter",
+          {
+            method:
+              "POST",
+            body:
+              formData,
+          }
+        );
+
+      const data =
+        await res.json();
+
+      if (
+        data.success
+      ) {
+        alert(
+          "Offer Letter Uploaded"
+        );
+
+        window.location.reload();
+      }
+    }}
+    className="
+      border
+      p-2
+      rounded
+      w-full
+    "
+  />
+</div>
             </div>
           )
         )}

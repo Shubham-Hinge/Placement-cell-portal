@@ -33,16 +33,15 @@ const UserSchema = new Schema(
         "student",
         "company",
         "admin",
+        "mentor",
       ],
       default: "student",
     },
 
-
-emailVerified: {
-  type: Boolean,
-  default: false,
-},
-
+    emailVerified: {
+      type: Boolean,
+      default: false,
+    },
 
     profileImage: {
       type: String,
@@ -73,6 +72,7 @@ emailVerified: {
 );
 
 const User =
-  models.User || model("User", UserSchema);
+  models.User ||
+  model("User", UserSchema);
 
 export default User;

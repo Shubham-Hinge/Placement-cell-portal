@@ -49,6 +49,10 @@ meetingLink: {
   type: String,
   default: "",
 },
+offerLetterUrl: {
+  type: String,
+  default: "",
+},
     },
     {
       timestamps: true,

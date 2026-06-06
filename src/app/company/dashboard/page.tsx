@@ -7,22 +7,63 @@ export default function CompanyDashboard() {
   const [name, setName] =
     useState("");
 
-  useEffect(() => {
-    setName(
-      localStorage.getItem(
-        "userName"
-      ) || ""
+ useEffect(() => {
+  const userRole =
+    localStorage.getItem(
+      "userRole"
     );
-  }, []);
+
+  if (
+    !userRole ||
+    userRole !== "company"
+  ) {
+    window.location.href =
+      "/login";
+    return;
+  }
+
+  setName(
+    localStorage.getItem(
+      "userName"
+    ) || ""
+  );
+}, []);
 
   return (
     <div className="p-10">
+<div className="flex items-center justify-between mb-10">
+  <h1 className="text-3xl font-bold">
+    Welcome {name}
+  </h1>
 
-      <h1 className="text-3xl font-bold">
-        Welcome {name}
-      </h1>
+  <button
+    onClick={() => {
+      localStorage.clear();
+      window.location.href =
+        "/login";
+    }}
+    className="
+      flex
+      items-center
+      gap-2
+      bg-red-500
+      hover:bg-red-600
+      text-white
+      font-medium
+      px-5
+      py-2.5
+      rounded-xl
+      shadow-md
+      hover:shadow-lg
+      transition-all
+      duration-300
+    "
+  >
+    Logout
+  </button>
+</div>
 
-      <div className="grid md:grid-cols-3 gap-6 mt-10">
+      <div className="grid md:grid-cols-3 gap-6">
 
         <Link
           href="/company/jobs/create"

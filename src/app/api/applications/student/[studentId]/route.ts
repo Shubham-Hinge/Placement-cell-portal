@@ -27,9 +27,36 @@ export async function GET(
         "jobId"
       );
 
+    const stats = {
+      applied:
+        applications.length,
+
+      shortlisted:
+        applications.filter(
+          (app) =>
+            app.status ===
+            "Shortlisted"
+        ).length,
+
+      selected:
+        applications.filter(
+          (app) =>
+            app.status ===
+            "Selected"
+        ).length,
+
+      rejected:
+        applications.filter(
+          (app) =>
+            app.status ===
+            "Rejected"
+        ).length,
+    };
+
     return NextResponse.json({
       success: true,
       applications,
+      stats,
     });
   } catch (error) {
     console.error(error);

@@ -157,7 +157,29 @@ export default function ApplicationsPage() {
   </div>
 )}
   
+{application.offerLetterUrl && (
+  <div className="mt-4">
 
+    <a
+      href={
+        application.offerLetterUrl
+      }
+      target="_blank"
+      rel="noreferrer"
+      className="
+        bg-green-600
+        text-white
+        px-4
+        py-2
+        rounded
+        inline-block
+      "
+    >
+      Download Offer Letter
+    </a>
+
+  </div>
+)}
               </div>
             )
           )}

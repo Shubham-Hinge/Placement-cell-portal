@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 import {
   BarChart,
   Bar,
@@ -14,6 +16,10 @@ import {
   useState,
 } from "react";
 
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
+import * as XLSX from "xlsx";
+
 export default function AdminDashboard() {
   const [stats, setStats] =
     useState<any>(null);
@@ -22,6 +28,20 @@ export default function AdminDashboard() {
     useState<any>(null);
 
   useEffect(() => {
+    const userRole =
+      localStorage.getItem(
+        "userRole"
+      );
+
+    if (
+      !userRole ||
+      userRole !== "admin"
+    ) {
+      window.location.href =
+        "/login";
+      return;
+    }
+
     const loadData =
       async () => {
         try {
@@ -58,7 +78,6 @@ export default function AdminDashboard() {
           }
         } catch (error) {
           console.error(
-            "Error loading dashboard data:",
             error
           );
         }
@@ -105,11 +124,193 @@ export default function AdminDashboard() {
     },
   ];
 
+  const downloadPDF =
+    async () => {
+      try {
+        const res =
+          await fetch(
+            "/api/admin/reports"
+          );
+
+        const data =
+          await res.json();
+
+        if (!data.success)
+          return;
+
+        const doc =
+          new jsPDF();
+
+        doc.setFontSize(18);
+
+        doc.text(
+          "Placement Report",
+          14,
+          20
+        );
+
+        autoTable(doc, {
+          startY: 30,
+          head: [
+            [
+              "Student",
+              "Email",
+              "Job",
+              "Company",
+              "Status",
+            ],
+          ],
+          body:
+            data.reportData.map(
+              (
+                row: any
+              ) => [
+                row.student,
+                row.email,
+                row.job,
+                row.company,
+                row.status,
+              ]
+            ),
+        });
+
+        doc.save(
+          "placement-report.pdf"
+        );
+      } catch (error) {
+        console.error(
+          error
+        );
+      }
+    };
+
+  const downloadExcel =
+    async () => {
+      try {
+        const res =
+          await fetch(
+            "/api/admin/reports"
+          );
+
+        const data =
+          await res.json();
+
+        if (!data.success)
+          return;
+
+        const worksheet =
+          XLSX.utils.json_to_sheet(
+            data.reportData
+          );
+
+        const workbook =
+          XLSX.utils.book_new();
+
+        XLSX.utils.book_append_sheet(
+          workbook,
+          worksheet,
+          "Placements"
+        );
+
+        XLSX.writeFile(
+          workbook,
+          "placement-report.xlsx"
+        );
+      } catch (error) {
+        console.error(
+          error
+        );
+      }
+    };
+
   return (
     <div className="p-10">
-      <h1 className="text-3xl font-bold mb-8">
-        Admin Dashboard
-      </h1>
+      
+      <div className="flex items-center justify-between mb-8">
+        <h1 className="text-3xl font-bold">
+          Admin Dashboard 
+        </h1>
+
+        <div className="flex gap-3">
+          <button
+            onClick={
+              downloadPDF
+            }
+            className="
+              bg-blue-600
+              text-white
+              px-4
+              py-2
+              rounded-lg
+            "
+          >
+            PDF Report
+          </button>
+
+          <button
+            onClick={
+              downloadExcel
+            }
+            className="
+              bg-green-600
+              text-white
+              px-4
+              py-2
+              rounded-lg
+            "
+          >
+            Excel Report
+          </button>
+
+          <button
+            onClick={() => {
+              localStorage.clear();
+              window.location.href =
+                "/login";
+            }}
+            className="
+              flex
+              items-center
+              gap-2
+              bg-red-500
+              hover:bg-red-600
+              text-white
+              font-medium
+              px-5
+              py-2.5
+              rounded-xl
+              shadow-md
+              hover:shadow-lg
+              transition-all
+              duration-300
+            "
+          >
+            Logout
+          </button>
+        </div>
+      </div>
+
+      <Link
+        href="/admin/users"
+        className="
+          bg-white
+          shadow
+          rounded
+          p-6
+          block
+          hover:shadow-lg
+        "
+      >
+        <h2 className="font-bold text-xl">
+          User Management
+        </h2>
+
+        <p>
+          Manage Students,
+          Companies &
+          Mentors
+        </p>
+      </Link>
 
       {analytics && (
         <div className="grid md:grid-cols-3 gap-6 mt-8">

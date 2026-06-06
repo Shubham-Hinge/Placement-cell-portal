@@ -122,6 +122,10 @@ export default function RegisterPage() {
             Company
           </option>
 
+           <option value="mentor">
+            Mentor
+          </option>
+          
           <option value="admin">
             Admin
           </option>

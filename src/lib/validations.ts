@@ -54,6 +54,7 @@ export const registerSchema = z.object({
   role: z.enum([
     "student",
     "company",
+    "mentor",
     "admin",
   ]),
 });
