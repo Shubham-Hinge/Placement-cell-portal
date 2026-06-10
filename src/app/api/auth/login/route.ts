@@ -6,12 +6,11 @@ import User from "@/models/User";
 import { generateToken } from "@/lib/auth";
 
 export async function POST(req: Request) {
-  console.log("LOGIN ROUTE HIT");
-
+ 
   try {
     
     await connectDB();
-
+   
     const body = await req.json();
 
     const { email, password } = body;
@@ -30,7 +29,7 @@ export async function POST(req: Request) {
     const user = await User.findOne({
       email: email.toLowerCase(),
     });
-
+ 
     if (!user) {
       return NextResponse.json(
         {
@@ -66,7 +65,7 @@ export async function POST(req: Request) {
       password,
       user.password
     );
-
+ 
     if (!isMatch) {
       return NextResponse.json(
         {
@@ -99,22 +98,18 @@ export async function POST(req: Request) {
       { status: 200 }
     );
 
-   response.cookies.set({
-  name: "token",
-  value: token,
-  httpOnly: true,
-  secure: false,
-  sameSite: "lax",
-  path: "/",
-  maxAge: 60 * 60 * 24 * 7,
-});
-
-console.log("TOKEN CREATED:", token);
+    response.cookies.set({
+      name: "token",
+      value: token,
+      httpOnly: true,
+      secure:
+      process.env.NODE_ENV ===
+      "production",
+      sameSite: "lax",
+      path: "/",
+      maxAge: 60 * 60 * 24 * 7,
+    });
  
-console.log("LOGIN SUCCESS");
-console.log("USER:", user.email);
-console.log("ROLE:", user.role);
-console.log("TOKEN:", token);
     return response;
   } catch (error) {
     console.error(

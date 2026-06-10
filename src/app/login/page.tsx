@@ -36,18 +36,8 @@ export default function LoginPage() {
         }
       );
 
-      console.log(
-        "STATUS:",
-        res.status
-      );
-
       const data =
         await res.json();
-
-      console.log(
-        "DATA:",
-        data
-      );
 
       if (!data.success) {
         alert(
@@ -77,31 +67,31 @@ export default function LoginPage() {
       );
 
       setTimeout(() => {
-       if (
-  data.user.role ===
-  "student"
-) {
-  window.location.href =
-    "/student/dashboard";
-} else if (
-  data.user.role ===
-  "company"
-) {
-  window.location.href =
-    "/company/dashboard";
-} else if (
-  data.user.role ===
-  "mentor"
-) {
-  window.location.href =
-    "/mentor/dashboard";
-} else if (
-  data.user.role ===
-    "admin"
-) {
-  window.location.href =
-    "/admin/dashboard";
-}
+        if (
+          data.user.role ===
+          "student"
+        ) {
+          window.location.href =
+            "/student/dashboard";
+        } else if (
+          data.user.role ===
+          "company"
+        ) {
+          window.location.href =
+            "/company/dashboard";
+        } else if (
+          data.user.role ===
+          "mentor"
+        ) {
+          window.location.href =
+            "/mentor/dashboard";
+        } else if (
+          data.user.role ===
+          "admin"
+        ) {
+          window.location.href =
+            "/admin/dashboard";
+        }
       }, 500);
     } catch (error) {
       console.error(
