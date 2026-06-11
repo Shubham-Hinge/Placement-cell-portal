@@ -23,7 +23,7 @@ jobs:
       - name: Build project
         run: npm run build
         env:
-          MONGODB_URI:MONGODB_URI=mongodb://shubhamhinge1074:0zMynPEBtsl7M69U@ac-poizzof-shard-00-00.jb2qc3u.mongodb.net:27017,ac-poizzof-shard-00-01.jb2qc3u.mongodb.net:27017,ac-poizzof-shard-00-02.jb2qc3u.mongodb.net:27017/?ssl=true&replicaSet=atlas-djirfa-shard-0&authSource=admin&appName=Cluster0
+          MONGODB_URI: MONGODB_URI=mongodb://shubhamhinge1074:0zMynPEBtsl7M69U@ac-poizzof-shard-00-00.jb2qc3u.mongodb.net:27017,ac-poizzof-shard-00-01.jb2qc3u.mongodb.net:27017,ac-poizzof-shard-00-02.jb2qc3u.mongodb.net:27017/?ssl=true&replicaSet=atlas-djirfa-shard-0&authSource=admin&appName=Cluster0
           JWT_SECRET: test-secret
           NEXTAUTH_SECRET: test-secret
           NEXTAUTH_URL: http://localhost:3000
