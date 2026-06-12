@@ -108,25 +108,46 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
+    <div
+      className="
+        min-h-screen
+        flex
+        items-center
+        justify-center
+        bg-gray-100
+        dark:bg-gray-950
+        p-4
+      "
+    >
       <div
         className="
           bg-white
+          dark:bg-gray-900
           shadow-lg
           rounded-xl
           p-8
           w-full
           max-w-md
+          border
+          border-gray-200
+          dark:border-gray-700
         "
       >
-        <h1 className="text-3xl font-bold mb-6 text-center">
+        <h1
+          className="
+            text-3xl
+            font-bold
+            mb-6
+            text-center
+            text-gray-900
+            dark:text-white
+          "
+        >
           Login
         </h1>
 
         <form
-          onSubmit={
-            handleLogin
-          }
+          onSubmit={handleLogin}
           className="space-y-4"
         >
           <input
@@ -135,6 +156,14 @@ export default function LoginPage() {
             className="
               w-full
               border
+              border-gray-300
+              dark:border-gray-600
+              bg-white
+              dark:bg-gray-800
+              text-black
+              dark:text-white
+              placeholder:text-gray-500
+              dark:placeholder:text-gray-400
               p-3
               rounded
             "
@@ -153,6 +182,14 @@ export default function LoginPage() {
             className="
               w-full
               border
+              border-gray-300
+              dark:border-gray-600
+              bg-white
+              dark:bg-gray-800
+              text-black
+              dark:text-white
+              placeholder:text-gray-500
+              dark:placeholder:text-gray-400
               p-3
               rounded
             "
@@ -170,6 +207,7 @@ export default function LoginPage() {
               href="/forgot-password"
               className="
                 text-blue-600
+                dark:text-blue-400
                 hover:underline
               "
             >

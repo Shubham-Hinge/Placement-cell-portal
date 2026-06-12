@@ -24,7 +24,8 @@ export default function RegisterPage() {
   ) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [e.target.name]:
+        e.target.value,
     });
   };
 
@@ -44,14 +45,19 @@ export default function RegisterPage() {
             "Content-Type":
               "application/json",
           },
-          body: JSON.stringify(formData),
+          body: JSON.stringify(
+            formData
+          ),
         }
       );
 
-      const data = await res.json();
+      const data =
+        await res.json();
 
       if (!data.success) {
-        alert(data.message);
+        alert(
+          data.message
+        );
         return;
       }
 
@@ -59,88 +65,206 @@ export default function RegisterPage() {
         "Registration successful. Please login."
       );
 
-      router.push("/login");
+      router.push(
+        "/login"
+      );
     } catch (error) {
-      console.error(error);
-      alert("Something went wrong");
+      console.error(
+        error
+      );
+
+      alert(
+        "Something went wrong"
+      );
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10">
-      <h1 className="text-3xl font-bold mb-4">
-        Register
-      </h1>
-
-      <form
-        onSubmit={handleSubmit}
-        className="space-y-4"
+    <div
+      className="
+        min-h-screen
+        flex
+        items-center
+        justify-center
+        bg-gray-100
+        dark:bg-gray-950
+        p-4
+      "
+    >
+      <div
+        className="
+          w-full
+          max-w-md
+          bg-white
+          dark:bg-gray-900
+          border
+          border-gray-200
+          dark:border-gray-700
+          rounded-xl
+          shadow-lg
+          p-8
+        "
       >
-        <input
-          type="text"
-          name="name"
-          placeholder="Name"
-          className="border p-2 w-full"
-          value={formData.name}
-          onChange={handleChange}
-          required
-        />
-
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          className="border p-2 w-full"
-          value={formData.email}
-          onChange={handleChange}
-          required
-        />
-
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          className="border p-2 w-full"
-          value={formData.password}
-          onChange={handleChange}
-          required
-        />
-
-        <select
-          name="role"
-          className="border p-2 w-full"
-          value={formData.role}
-          onChange={handleChange}
+        <h1
+          className="
+            text-3xl
+            font-bold
+            mb-6
+            text-center
+            text-gray-900
+            dark:text-white
+          "
         >
-          <option value="student">
-            Student
-          </option>
+          Register
+        </h1>
 
-          <option value="company">
-            Company
-          </option>
-
-           <option value="mentor">
-            Mentor
-          </option>
-          
-          <option value="admin">
-            Admin
-          </option>
-        </select>
-
-        <button
-          type="submit"
-          disabled={loading}
-          className="bg-blue-600 text-white p-2 rounded w-full"
+        <form
+          onSubmit={
+            handleSubmit
+          }
+          className="space-y-4"
         >
-          {loading
-            ? "Registering..."
-            : "Register"}
-        </button>
-      </form>
+          <input
+            type="text"
+            name="name"
+            placeholder="Name"
+            className="
+              w-full
+              p-3
+              rounded
+              border
+              border-gray-300
+              dark:border-gray-600
+              bg-white
+              dark:bg-gray-800
+              text-black
+              dark:text-white
+              placeholder:text-gray-500
+              dark:placeholder:text-gray-400
+            "
+            value={
+              formData.name
+            }
+            onChange={
+              handleChange
+            }
+            required
+          />
+
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            className="
+              w-full
+              p-3
+              rounded
+              border
+              border-gray-300
+              dark:border-gray-600
+              bg-white
+              dark:bg-gray-800
+              text-black
+              dark:text-white
+              placeholder:text-gray-500
+              dark:placeholder:text-gray-400
+            "
+            value={
+              formData.email
+            }
+            onChange={
+              handleChange
+            }
+            required
+          />
+
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            className="
+              w-full
+              p-3
+              rounded
+              border
+              border-gray-300
+              dark:border-gray-600
+              bg-white
+              dark:bg-gray-800
+              text-black
+              dark:text-white
+              placeholder:text-gray-500
+              dark:placeholder:text-gray-400
+            "
+            value={
+              formData.password
+            }
+            onChange={
+              handleChange
+            }
+            required
+          />
+
+          <select
+            name="role"
+            className="
+              w-full
+              p-3
+              rounded
+              border
+              border-gray-300
+              dark:border-gray-600
+              bg-white
+              dark:bg-gray-800
+              text-black
+              dark:text-white
+            "
+            value={
+              formData.role
+            }
+            onChange={
+              handleChange
+            }
+          >
+            <option value="student">
+              Student
+            </option>
+
+            <option value="company">
+              Company
+            </option>
+
+            <option value="mentor">
+              Mentor
+            </option>
+
+            <option value="admin">
+              Admin
+            </option>
+          </select>
+
+          <button
+            type="submit"
+            disabled={
+              loading
+            }
+            className="
+              w-full
+              bg-blue-600
+              hover:bg-blue-700
+              text-white
+              p-3
+              rounded
+            "
+          >
+            {loading
+              ? "Registering..."
+              : "Register"}
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
