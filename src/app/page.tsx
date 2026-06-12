@@ -39,25 +39,27 @@ export default function HomePage() {
             >
               🎓 Placement Portal
             </h1>
+    <nav className="flex items-center gap-4">
 
-            <nav className="flex items-center gap-4">
+  <Link href="/">
+    Home
+  </Link>
 
-              <Link href="/">
-                Home
-              </Link>
+  <Link href="/jobs">
+    Jobs
+  </Link>
 
-              <Link href="/login">
-                Login
-              </Link>
+  <Link href="/login">
+    Login
+  </Link>
 
-              <Link href="/register">
-                Register
-              </Link>
+  <Link href="/register">
+    Register
+  </Link>
 
-              <ThemeToggle />
+  <ThemeToggle />
 
-            </nav>
-
+</nav>
           </div>
 
         </div>
