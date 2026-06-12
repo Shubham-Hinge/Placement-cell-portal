@@ -2,21 +2,40 @@
 
 ## Project Overview
 
-Campus Placement Portal is a Full Stack Web Application developed to automate and simplify the campus recruitment process. The platform connects Students, Companies, Mentors, and Administrators through a centralized system where job postings, applications, interviews, selections, analytics, and reports can be managed efficiently.
+Campus Placement Portal is a Full Stack Web Application designed to automate and simplify the campus recruitment process. The platform acts as a centralized system connecting Students, Companies, Mentors, and Administrators for managing placements, job postings, applications, analytics, and reports.
 
-The project is built using Next.js, TypeScript, MongoDB, Mongoose, Tailwind CSS, JWT Authentication, and Nodemailer.
+The system eliminates manual placement management by providing role-based dashboards, secure authentication, cloud database integration, responsive design, analytics, reporting, and job management capabilities.
+
+Built using Next.js, TypeScript, MongoDB Atlas, Tailwind CSS, JWT Authentication, and deployed on Vercel, the platform provides a modern and scalable recruitment management solution.
+
+---
+
+# Live Demo
+
+Frontend URL:
+
+```text
+https://placement-cell-portal-xi.vercel.app
+```
+
+GitHub Repository:
+
+```text
+https://github.com/Shubham-Hinge/Placement-cell-portal
+```
 
 ---
 
 # Objectives
 
-* Digitize the placement process.
+* Digitize the campus placement process.
 * Provide a centralized recruitment platform.
-* Enable students to apply for jobs online.
-* Allow companies to manage applicants efficiently.
-* Help administrators monitor placement activities.
-* Provide mentors with placement insights.
+* Enable students to discover and apply for jobs.
+* Allow companies to manage recruitment efficiently.
+* Provide mentors with placement monitoring capabilities.
+* Enable administrators to monitor placement activities.
 * Generate placement analytics and reports.
+* Improve transparency and efficiency throughout recruitment.
 
 ---
 
@@ -24,7 +43,7 @@ The project is built using Next.js, TypeScript, MongoDB, Mongoose, Tailwind CSS,
 
 ## Frontend
 
-* Next.js
+* Next.js 15
 * React.js
 * TypeScript
 * Tailwind CSS
@@ -36,15 +55,15 @@ The project is built using Next.js, TypeScript, MongoDB, Mongoose, Tailwind CSS,
 
 ## Database
 
-* MongoDB
+* MongoDB Atlas
 * Mongoose ODM
 
 ## Authentication & Security
 
 * JWT Authentication
 * bcryptjs Password Hashing
-* Email Verification
-* Password Reset System
+* Protected Routes
+* Role-Based Access Control
 
 ## Reporting
 
@@ -56,10 +75,27 @@ The project is built using Next.js, TypeScript, MongoDB, Mongoose, Tailwind CSS,
 
 * Recharts
 
-## Email Services
+## Deployment
 
-* Nodemailer
-* Gmail SMTP
+* Vercel
+* MongoDB Atlas
+
+---
+
+# System Architecture
+
+```text
+Frontend (Next.js)
+        │
+        ▼
+API Routes (Next.js)
+        │
+        ▼
+MongoDB Atlas
+        │
+        ▼
+Role-Based Dashboards
+```
 
 ---
 
@@ -69,17 +105,15 @@ The project is built using Next.js, TypeScript, MongoDB, Mongoose, Tailwind CSS,
 
 Students can:
 
-* Register and Login
-* Verify Email
-* Complete Profile
+* Register Account
+* Login Securely
+* Manage Profile
 * Upload Resume
-* View Available Jobs
+* Browse Available Jobs
 * Apply for Jobs
 * Track Applications
-* View Application Status
-* Receive Interview Information
-* Join Online Interviews
-* Monitor Placement Progress
+* View Placement Updates
+* Monitor Career Progress
 
 ---
 
@@ -87,18 +121,15 @@ Students can:
 
 Companies can:
 
-* Register and Login
+* Register Company Account
+* Login Securely
 * Create Job Postings
-* Edit Job Details
-* Delete Job Posts
+* Manage Existing Jobs
 * View Applicants
 * Review Applications
-* Shortlist Candidates
-* Schedule Interviews
-* Send Meeting Links
-* Select Candidates
-* Reject Candidates
-* View Company Analytics
+* Monitor Recruitment Activities
+* Access Company Dashboard
+* View Placement Analytics
 
 ---
 
@@ -106,11 +137,11 @@ Companies can:
 
 Mentors can:
 
-* Login to Mentor Dashboard
-* Monitor Placement Activities
-* View Student Progress
-* Analyze Placement Statistics
-* Guide Students Through Placement Process
+* Access Mentor Dashboard
+* Monitor Student Progress
+* View Placement Statistics
+* Analyze Placement Activities
+* Guide Students Through Recruitment Process
 
 ---
 
@@ -122,11 +153,10 @@ Administrators can:
 * Manage Students
 * Manage Companies
 * Manage Mentors
-* Monitor Placements
-* View Analytics Dashboard
-* Export PDF Reports
-* Export Excel Reports
-* Track Overall System Activity
+* Manage Placement Activities
+* View System Analytics
+* Generate Reports
+* Monitor Overall Platform Activity
 
 ---
 
@@ -136,6 +166,8 @@ Administrators can:
 
 ### Registration
 
+Supports:
+
 * Student Registration
 * Company Registration
 * Mentor Registration
@@ -143,19 +175,46 @@ Administrators can:
 
 ### Login
 
+Features:
+
 * JWT Authentication
-* Role-Based Redirection
+* Secure Login System
+* Role-Based Dashboard Redirection
 
-### Email Verification
+### Security
 
-* Secure Account Activation
-* Verification Token Management
+Includes:
 
-### Password Reset
+* Password Hashing
+* Protected Routes
+* Secure API Access
+* Role Validation
 
-* Forgot Password
-* Reset Password Link
-* Secure Password Update
+---
+
+# Landing Page
+
+The Landing Page provides:
+
+* Project Introduction
+* Platform Features
+* Login Navigation
+* Registration Navigation
+* Public Job Listings
+* Dark Mode / Light Mode Toggle
+* Mobile Responsive Design
+
+---
+
+# Dark Mode & Light Mode
+
+Implemented Features:
+
+* Theme Toggle
+* Persistent Theme Selection
+* Mobile Compatibility
+* Dashboard Compatibility
+* Improved Accessibility
 
 ---
 
@@ -163,52 +222,20 @@ Administrators can:
 
 ## Student Dashboard
 
-Displays:
+Provides:
 
-* Applied Jobs Count
-* Shortlisted Jobs Count
-* Selected Jobs Count
-* Rejected Jobs Count
+* Placement Overview
+* Application Tracking
+* Profile Access
+* Job Discovery
 
-## Profile Management
+### Student Features
 
-Students can manage:
-
-* Full Name
-* Phone Number
-* College Name
-* Course
-* Specialization
-* Graduation Year
-* CGPA
-* GitHub Profile
-* LinkedIn Profile
-* Profile Photo
-
-## Resume Management
-
-Students can:
-
-* Upload Resume
-* View Resume
-* Update Resume
-
-## Job Portal
-
-Students can:
-
-* Browse Jobs
-* View Job Details
+* View Jobs
 * Apply for Jobs
-
-## Application Tracking
-
-Students can:
-
-* View Applied Jobs
-* Check Status Updates
-* Track Interview Schedule
-* Access Meeting Links
+* Manage Profile
+* Upload Resume
+* Monitor Applications
 
 ---
 
@@ -220,45 +247,69 @@ Provides quick access to:
 
 * Create Job
 * Manage Jobs
-* Applicants
+* View Applicants
 * Analytics
 
-## Job Management
+### Job Management
 
 Companies can:
 
 * Create Jobs
+* View Jobs
 * Update Jobs
 * Delete Jobs
-* View Job Listings
 
-## Applicant Management
-
-Companies can:
-
-* View Applicants
-* View Resume
-* Shortlist Candidates
-* Reject Candidates
-* Select Candidates
-
-## Interview Scheduling
+### Recruitment Management
 
 Companies can:
 
-* Set Interview Date
-* Set Interview Time
-* Add Meeting Link
-* Notify Students
+* Review Applications
+* Manage Recruitment Workflow
+* Monitor Job Performance
 
-## Email Notifications
+---
 
-Automatic Emails:
+# Public Job Portal
 
-* Shortlisted Email
-* Selected Email
-* Rejected Email
-* Interview Schedule Email
+## Features
+
+* Publicly Accessible Job Listings
+* Dynamic Job Retrieval from MongoDB
+* Responsive Interface
+* Real-Time Job Availability
+
+### Apply Workflow
+
+```text
+Visitor
+   │
+   ▼
+View Jobs
+   │
+   ▼
+Apply
+   │
+   ▼
+Login Required Modal
+   │
+   ├── Login
+   └── Register
+```
+
+### Student Workflow
+
+```text
+Student Login
+      │
+      ▼
+View Jobs
+      │
+      ▼
+Apply
+      │
+      ▼
+Application Processing
+```
 
 ---
 
@@ -268,11 +319,11 @@ Automatic Emails:
 
 Displays:
 
-* Total Applications
-* Selected Students
-* Placement Rate
+* Placement Statistics
+* Student Progress
+* Recruitment Insights
 
-Mentors can analyze placement progress and student performance.
+Mentors can monitor placement activities and provide guidance to students.
 
 ---
 
@@ -283,51 +334,58 @@ Mentors can analyze placement progress and student performance.
 Displays:
 
 * Total Users
-* Students
-* Companies
-* Mentors
-* Jobs
-* Applications
-* Selected Students
-* Placement Rate
-
-## User Management
-
-Admin can:
-
-* Manage Students
-* Manage Companies
-* Manage Mentors
-* Monitor System Users
-
-## Analytics
-
-Admin can view:
-
+* Total Students
+* Total Companies
+* Total Mentors
+* Total Jobs
 * Placement Analytics
-* Student Statistics
-* Company Statistics
-* Application Statistics
+* Reports
 
-## Reports
+### Administrative Functions
 
-### PDF Report Export
-
-Includes:
-
-* Student Name
-* Email
-* Job
-* Company
-* Status
-
-### Excel Report Export
-
-Download placement data in spreadsheet format.
+* User Management
+* Placement Monitoring
+* Analytics Review
+* Report Generation
 
 ---
 
-# Database Collections
+# Analytics Module
+
+Provides:
+
+* Placement Statistics
+* Job Statistics
+* Student Analytics
+* Company Analytics
+* Recruitment Insights
+
+Visualization implemented using Recharts.
+
+---
+
+# Reporting Module
+
+## PDF Reports
+
+Export:
+
+* Placement Data
+* User Data
+* Job Data
+* Analytics Information
+
+## Excel Reports
+
+Export:
+
+* Placement Records
+* Recruitment Statistics
+* Student Information
+
+---
+
+# Database Design
 
 ## Users Collection
 
@@ -337,9 +395,7 @@ Stores:
 * Email
 * Password
 * Role
-* Email Verification Status
-* Profile Image
-* Last Login
+* Profile Information
 
 ---
 
@@ -347,7 +403,8 @@ Stores:
 
 Stores:
 
-* Company Information
+* Company ID
+* Company Name
 * Job Title
 * Description
 * Skills
@@ -355,6 +412,7 @@ Stores:
 * Location
 * Job Type
 * Last Date
+* Active Status
 
 ---
 
@@ -364,39 +422,78 @@ Stores:
 
 * Student Information
 * Job Information
-* Resume URL
 * Application Status
-* Interview Date
-* Interview Time
-* Meeting Link
+* Application Date
 
 ---
 
-## Verification Tokens Collection
+# API Endpoints
 
-Stores:
+## Authentication APIs
 
-* Verification Token
-* Email Address
-* Expiry Time
+```text
+POST /api/auth/register
+POST /api/auth/login
+```
+
+## Job APIs
+
+```text
+GET /api/jobs
+POST /api/jobs
+```
+
+## Dashboard APIs
+
+```text
+GET /api/admin/*
+GET /api/company/*
+GET /api/student/*
+GET /api/mentor/*
+```
 
 ---
 
 # Project Workflow
 
-1. User Registration
-2. Email Verification
-3. Login
-4. Student Profile Completion
-5. Resume Upload
-6. Company Creates Job
-7. Student Applies
-8. Company Reviews Applications
-9. Company Shortlists Candidate
-10. Interview Scheduling
-11. Candidate Selection
-12. Placement Analytics Generation
-13. Report Export
+## Recruitment Workflow
+
+```text
+User Registration
+        │
+        ▼
+Login
+        │
+        ▼
+Role Verification
+        │
+        ▼
+Dashboard Access
+        │
+        ▼
+Company Creates Job
+        │
+        ▼
+Job Stored in MongoDB
+        │
+        ▼
+Public Jobs Page Updated
+        │
+        ▼
+Student Views Job
+        │
+        ▼
+Student Applies
+        │
+        ▼
+Application Processing
+        │
+        ▼
+Placement Monitoring
+        │
+        ▼
+Analytics & Reports
+```
 
 ---
 
@@ -409,11 +506,19 @@ MONGODB_URI=your_mongodb_connection_string
 
 JWT_SECRET=your_jwt_secret
 
+NEXTAUTH_SECRET=your_nextauth_secret
+
+NEXTAUTH_URL=http://localhost:3000
+
 EMAIL_USER=your_email@gmail.com
 
 EMAIL_PASS=your_email_password
+```
 
-NEXT_PUBLIC_APP_URL=http://localhost:3000
+For Production:
+
+```env
+NEXTAUTH_URL=https://your-vercel-domain.vercel.app
 ```
 
 ---
@@ -424,7 +529,7 @@ NEXT_PUBLIC_APP_URL=http://localhost:3000
 
 ```bash
 git clone <repository-url>
-cd placement-portal
+cd campus-placement-portal
 ```
 
 ## Install Dependencies
@@ -439,11 +544,47 @@ npm install
 npm run dev
 ```
 
-## Open Application
+Application URL:
 
 ```text
 http://localhost:3000
 ```
+
+---
+
+# Production Build
+
+## Build
+
+```bash
+npm run build
+```
+
+## Start
+
+```bash
+npm start
+```
+
+---
+
+# Deployment
+
+## Frontend Hosting
+
+* Vercel
+
+## Database Hosting
+
+* MongoDB Atlas
+
+## Deployment Process
+
+1. Push code to GitHub.
+2. Connect repository to Vercel.
+3. Configure environment variables.
+4. Deploy automatically.
+5. Monitor production logs.
 
 ---
 
@@ -457,15 +598,21 @@ src
 │   ├── company
 │   ├── student
 │   ├── mentor
+│   ├── jobs
 │   ├── login
 │   ├── register
-│   └── api
+│   ├── api
+│   └── page.tsx
 │
 ├── components
+│   ├── ThemeToggle.tsx
 │
 ├── lib
 │
 ├── models
+│   ├── User.ts
+│   ├── Job.ts
+│   └── Application.ts
 │
 ├── public
 │
@@ -474,67 +621,90 @@ src
 
 ---
 
-# Future Enhancements
+# Security Features
 
-* AI Resume Screening
-* AI Skill Matching
-* Video Interview Integration
-* Real-Time Notifications
-* In-App Messaging
-* Mobile Application
-* Placement Prediction System
-* Advanced Mentor Features
-* AI Career Guidance
+Implemented:
+
+* JWT Authentication
+* Password Hashing
+* Protected Routes
+* Role Validation
+* Environment Variable Security
+* MongoDB Atlas Security
+* Input Validation
 
 ---
 
 # Testing Summary
 
-### Authentication Module
+## Authentication Testing
 
-Completed
+* Registration
+* Login
+* Logout
+* Role Redirection
 
-### Student Module
+## Job Management Testing
 
-Completed
+* Create Job
+* Fetch Jobs
+* Public Job Listing
 
-### Company Module
+## Dashboard Testing
 
-Completed
+* Student Dashboard
+* Company Dashboard
+* Mentor Dashboard
+* Admin Dashboard
 
-### Admin Module
+## UI Testing
 
-Completed
+* Responsive Design
+* Mobile Compatibility
+* Dark Mode
+* Light Mode
 
-### Reporting Module
+## Deployment Testing
 
-Completed
-
-### Analytics Module
-
-Completed
-
-### Mentor Module
-
-Completed
+* Vercel Deployment
+* MongoDB Connectivity
+* Environment Variables
 
 ---
 
-# Project Completion Status
+# Future Enhancements
 
-| Module         | Status |
-| -------------- | ------ |
-| Authentication | 100%   |
-| Student Portal | 100%   |
-| Company Portal | 100%   |
-| Admin Portal   | 100%   |
-| Mentor Portal  | 100%   |
-| Analytics      | 100%   |
-| Reporting      | 100%   |
+* AI Resume Screening
+* AI Skill Matching
+* Real-Time Notifications
+* Interview Scheduling
+* Video Interview Integration
+* In-App Messaging
+* Mobile Application
+* Placement Prediction System
+* Career Guidance Module
 
-### Overall Project Completion
+---
 
-**100% Complete**
+# Project Status
+
+| Module            | Status      |
+| ----------------- | ----------- |
+| Authentication    | ✅ Completed |
+| Student Portal    | ✅ Completed |
+| Company Portal    | ✅ Completed |
+| Mentor Portal     | ✅ Completed |
+| Admin Portal      | ✅ Completed |
+| Public Job Portal | ✅ Completed |
+| Job Management    | ✅ Completed |
+| Analytics         | ✅ Completed |
+| Reporting         | ✅ Completed |
+| Dark/Light Mode   | ✅ Completed |
+| Deployment        | ✅ Completed |
+
+## Overall Completion
+
+**Project Status: 100% Completed**
 
 ---
 
@@ -543,4 +713,5 @@ Completed
 **Shubham Hinge**
 M.Sc. Computer Science
 
-Campus Placement Portal – Full Stack Placement Management System
+**Campus Placement Portal**
+Full Stack Placement Management System
