@@ -24,6 +24,6 @@ jobs:
         run: npm run build
         env:
           MONGODB_URI: MONGODB_URI=mongodb://shubhamhinge1074:0zMynPEBtsl7M69U@ac-poizzof-shard-00-00.jb2qc3u.mongodb.net:27017,ac-poizzof-shard-00-01.jb2qc3u.mongodb.net:27017,ac-poizzof-shard-00-02.jb2qc3u.mongodb.net:27017/?ssl=true&replicaSet=atlas-djirfa-shard-0&authSource=admin&appName=Cluster0
-          JWT_SECRET: test-secret
-          NEXTAUTH_SECRET: test-secret
-          NEXTAUTH_URL: http://localhost:3000
+          JWT_SECRET: 7f5c2d2d-4d2d-4f55-92c2-b4d7e7f5b123
+          NEXTAUTH_SECRET: 9a8c1b2e-8f66-4e4c-91c9-abc123456789
+          NEXTAUTH_URL: https://placement-cell-portal-xi.vercel.app
