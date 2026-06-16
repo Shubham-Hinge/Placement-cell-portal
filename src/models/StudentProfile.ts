@@ -14,6 +14,13 @@ const StudentProfileSchema =
         unique: true,
       },
 
+      // NEW
+      mentorId: {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+        default: null,
+      },
+
       fullName: {
         type: String,
         default: "",
@@ -74,9 +81,10 @@ const StudentProfileSchema =
       },
 
       profileImage: {
-  type: String,
-  default: "",
-},
+        type: String,
+        default: "",
+      },
+
       profileCompleted: {
         type: Boolean,
         default: false,

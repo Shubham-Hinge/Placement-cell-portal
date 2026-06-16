@@ -1,5 +1,7 @@
 "use client";
 
+import DashboardButton from "@/components/common/DashboardButton";
+import CompanySidebar from "@/components/company/sidebar";
 import { useState } from "react";
 
 export default function CreateJobPage() {
@@ -124,142 +126,277 @@ export default function CreateJobPage() {
       }
     };
 
-  return (
-    <div className="min-h-screen bg-gray-100 p-8">
+return (
+  <div className="flex min-h-screen bg-gray-50">
+    <CompanySidebar />
 
-      <div className="max-w-4xl mx-auto bg-white rounded-xl shadow p-8">
-
-        <h1 className="text-3xl font-bold mb-8">
-          Create Job
-        </h1>
-
-        <form
-          onSubmit={
-            handleSubmit
-          }
-          className="space-y-4"
+    <main className="flex-1 p-6 md:p-10">
+    <DashboardButton
+    href="/company/dashboard"
+  />
+      {/* Header */}
+      <div className="mb-10">
+        <div
+          className="
+            bg-white
+            rounded-3xl
+            shadow-sm
+            border
+            border-gray-100
+            px-8
+            py-6
+            flex
+            items-center
+            justify-between
+          "
         >
+          <div>
+            <p className="text-sm font-medium text-blue-600 mb-2">
+              Recruitment Management
+            </p>
 
-          <input
-            name="title"
-            placeholder="Job Title"
-            value={
-              form.title
-            }
-            onChange={
-              handleChange
-            }
-            className="border p-3 rounded w-full"
-            required
-          />
+            <h1 className="text-4xl font-bold text-gray-900">
+              Create New Job
+            </h1>
 
-          <textarea
-            name="description"
-            placeholder="Job Description"
-            value={
-              form.description
-            }
-            onChange={
-              handleChange
-            }
-            className="border p-3 rounded w-full"
-            rows={5}
-            required
-          />
+            <p className="text-gray-500 mt-2">
+              Publish a new job opportunity and start receiving applications.
+            </p>
+          </div>
 
-          <input
-            name="location"
-            placeholder="Location"
-            value={
-              form.location
-            }
-            onChange={
-              handleChange
-            }
-            className="border p-3 rounded w-full"
-            required
-          />
-
-          <input
-            name="salary"
-            placeholder="Salary"
-            value={
-              form.salary
-            }
-            onChange={
-              handleChange
-            }
-            className="border p-3 rounded w-full"
-          />
-
-          <input
-            name="skills"
-            placeholder="Skills (comma separated)"
-            value={
-              form.skills
-            }
-            onChange={
-              handleChange
-            }
-            className="border p-3 rounded w-full"
-          />
-
-          <select
-            name="jobType"
-            value={
-              form.jobType
-            }
-            onChange={
-              handleChange
-            }
-            className="border p-3 rounded w-full"
+          <div
+            className="
+              h-16
+              w-16
+              rounded-full
+              bg-gradient-to-r
+              from-blue-600
+              to-indigo-600
+              text-white
+              flex
+              items-center
+              justify-center
+              text-2xl
+              font-bold
+              shadow-lg
+            "
           >
-            <option>
-              Full Time
-            </option>
-
-            <option>
-              Internship
-            </option>
-
-            <option>
-              Part Time
-            </option>
-
-            <option>
-              Remote
-            </option>
-          </select>
-
-          <input
-            type="date"
-            name="lastDate"
-            value={
-              form.lastDate
-            }
-            onChange={
-              handleChange
-            }
-            className="border p-3 rounded w-full"
-            required
-          />
-
-          <button
-            type="submit"
-            disabled={
-              loading
-            }
-            className="bg-blue-600 text-white px-6 py-3 rounded"
-          >
-            {loading
-              ? "Creating..."
-              : "Create Job"}
-          </button>
-
-        </form>
-
+            ➕
+          </div>
+        </div>
       </div>
 
-    </div>
-  );
+      {/* Form */}
+      <div
+        className="
+          max-w-5xl
+          bg-white
+          rounded-3xl
+          shadow-sm
+          border
+          border-gray-100
+          p-8
+        "
+      >
+        <form
+          onSubmit={handleSubmit}
+          className="space-y-6"
+        >
+
+          <div>
+            <label className="block mb-2 font-medium">
+              Job Title
+            </label>
+
+            <input
+              name="title"
+              value={form.title}
+              onChange={handleChange}
+              placeholder="Frontend Developer"
+              className="
+                border
+                border-gray-200
+                p-3
+                rounded-xl
+                w-full
+              "
+              required
+            />
+          </div>
+
+          <div>
+            <label className="block mb-2 font-medium">
+              Job Description
+            </label>
+
+            <textarea
+              name="description"
+              value={form.description}
+              onChange={handleChange}
+              rows={6}
+              className="
+                border
+                border-gray-200
+                p-3
+                rounded-xl
+                w-full
+              "
+              required
+            />
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6">
+
+            <div>
+              <label className="block mb-2 font-medium">
+                Location
+              </label>
+
+              <input
+                name="location"
+                value={form.location}
+                onChange={handleChange}
+                placeholder="Pune, Maharashtra"
+                className="
+                  border
+                  border-gray-200
+                  p-3
+                  rounded-xl
+                  w-full
+                "
+                required
+              />
+            </div>
+
+            <div>
+              <label className="block mb-2 font-medium">
+                Salary Package
+              </label>
+
+              <input
+                name="salary"
+                value={form.salary}
+                onChange={handleChange}
+                placeholder="₹6 LPA"
+                className="
+                  border
+                  border-gray-200
+                  p-3
+                  rounded-xl
+                  w-full
+                "
+              />
+            </div>
+
+          </div>
+
+          <div>
+            <label className="block mb-2 font-medium">
+              Required Skills
+            </label>
+
+            <input
+              name="skills"
+              value={form.skills}
+              onChange={handleChange}
+              placeholder="React, Next.js, TypeScript, MongoDB"
+              className="
+                border
+                border-gray-200
+                p-3
+                rounded-xl
+                w-full
+              "
+            />
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6">
+
+            <div>
+              <label className="block mb-2 font-medium">
+                Job Type
+              </label>
+
+              <select
+                name="jobType"
+                value={form.jobType}
+                onChange={handleChange}
+                className="
+                  border
+                  border-gray-200
+                  p-3
+                  rounded-xl
+                  w-full
+                "
+              >
+                <option value="Full Time">
+                  Full Time
+                </option>
+
+                <option value="Internship">
+                  Internship
+                </option>
+
+                <option value="Part Time">
+                  Part Time
+                </option>
+
+                <option value="Remote">
+                  Remote
+                </option>
+              </select>
+            </div>
+
+            <div>
+              <label className="block mb-2 font-medium">
+                Application Deadline
+              </label>
+
+              <input
+                type="date"
+                name="lastDate"
+                value={form.lastDate}
+                onChange={handleChange}
+                className="
+                  border
+                  border-gray-200
+                  p-3
+                  rounded-xl
+                  w-full
+                "
+                required
+              />
+            </div>
+
+          </div>
+
+          <div className="pt-4">
+            <button
+              type="submit"
+              disabled={loading}
+              className="
+                bg-blue-600
+                hover:bg-blue-700
+                text-white
+                px-8
+                py-3
+                rounded-xl
+                font-medium
+                transition-all
+                disabled:opacity-50
+                disabled:cursor-not-allowed
+              "
+            >
+              {loading
+                ? "Creating Job..."
+                : "Create Job"}
+            </button>
+          </div>
+
+        </form>
+      </div>
+
+    </main>
+  </div>
+);
 }

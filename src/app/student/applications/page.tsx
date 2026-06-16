@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 export default function ApplicationsPage() {
   const [applications, setApplications] =
@@ -46,24 +47,88 @@ export default function ApplicationsPage() {
   }, []);
 
   if (loading) {
-    return (
-      <div className="p-10">
-        Loading...
+  return (
+    <div className="min-h-screen bg-gray-50 p-10">
+      <div className="bg-white rounded-3xl p-8 shadow-sm">
+        Loading Applications...
       </div>
-    );
-  }
+    </div>
+  );
+}
+  
 
   return (
-    <div className="p-10">
+    <div className="min-h-screen bg-gray-50 p-6 md:p-10">
 
-      <h1 className="text-3xl font-bold mb-8">
-        My Applications
-      </h1>
+      <div className="flex items-center justify-between mb-8">
+  <div>
+    <div className="flex items-center gap-3 mb-3">
+      <Link
+        href="/student/dashboard"
+        className="
+          flex
+          items-center
+          gap-2
+          px-4
+          py-2
+          rounded-xl
+          border
+          border-gray-200
+          bg-white
+          hover:bg-gray-50
+          shadow-sm
+          transition-all
+        "
+      >
+        ← Dashboard
+      </Link>
+    </div>
+
+    <h1 className="text-4xl font-bold text-gray-900">
+      My Applications
+    </h1>
+
+    <p className="text-gray-500 mt-2">
+      Track application status, interviews,
+      and offer letters.
+    </p>
+  </div>
+</div>
 
       {applications.length === 0 ? (
-        <div>
-          No Applications Found
-        </div>
+        <div
+  className="
+    bg-white
+    rounded-3xl
+    p-10
+    text-center
+    shadow-sm
+  "
+>
+  <h2 className="text-2xl font-semibold">
+    No Applications Found
+  </h2>
+
+  <p className="text-gray-500 mt-3">
+    Start applying for jobs to track them here.
+  </p>
+
+  <Link
+    href="/student/jobs"
+    className="
+      inline-block
+      mt-5
+      bg-blue-600
+      hover:bg-blue-700
+      text-white
+      px-5
+      py-3
+      rounded-xl
+    "
+  >
+    Browse Jobs
+  </Link>
+</div>
       ) : (
         <div className="grid gap-5">
 
@@ -76,11 +141,13 @@ export default function ApplicationsPage() {
                   application._id
                 }
                 className="
-                  bg-white
-                  shadow
-                  rounded
-                  p-5
-                "
+  bg-white
+  rounded-3xl
+  p-6
+  shadow-sm
+  hover:shadow-xl
+  transition-all
+"
               >
 
                 <h2 className="font-bold text-xl">
@@ -104,11 +171,26 @@ export default function ApplicationsPage() {
                 <p>
   Status:
   {" "}
-  <span className="font-bold">
-    {
-      application.status
+ <span
+  className={`
+    px-3
+    py-1
+    rounded-full
+    text-sm
+    font-semibold
+    ${
+      application.status === "Selected"
+        ? "bg-green-100 text-green-700"
+        : application.status === "Rejected"
+        ? "bg-red-100 text-red-700"
+        : application.status === "Shortlisted"
+        ? "bg-yellow-100 text-yellow-700"
+        : "bg-blue-100 text-blue-700"
     }
-  </span>
+  `}
+>
+  {application.status}
+</span>
 </p>
 
 <p>

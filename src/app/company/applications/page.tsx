@@ -1,5 +1,7 @@
 "use client";
 
+import DashboardButton from "@/components/common/DashboardButton";
+import CompanySidebar from "@/components/company/sidebar";
 import {
   useEffect,
   useState,
@@ -129,261 +131,173 @@ export default function CompanyApplicationsPage() {
     load();
   }, []);
 
-  return (
-    <div className="p-10">
-      <h1 className="text-3xl font-bold mb-8">
-        Applicants
-      </h1>
+ return (
+  <div className="flex min-h-screen bg-gray-50">
+    <CompanySidebar />
 
-      <div className="grid gap-5">
-        {applications.map(
-          (app) => (
-            <div
-              key={
-                app._id
-              }
+    <main className="flex-1 p-6 md:p-10">
+    <DashboardButton
+    href="/company/dashboard"
+  />
+      {/* Header */}
+      <div className="mb-10">
+        <div
+          className="
+            bg-white
+            rounded-3xl
+            shadow-sm
+            border
+            border-gray-100
+            px-8
+            py-6
+            flex
+            items-center
+            justify-between
+          "
+        >
+          <div>
+            <p className="text-sm font-medium text-blue-600 mb-2">
+              Recruitment Management
+            </p>
+
+            <h1 className="text-4xl font-bold text-gray-900">
+              Applicants
+            </h1>
+
+            <p className="text-gray-500 mt-2">
+              Review candidates, schedule interviews,
+              and manage hiring decisions.
+            </p>
+          </div>
+
+          <div
+            className="
+              h-16
+              w-16
+              rounded-full
+              bg-gradient-to-r
+              from-blue-600
+              to-indigo-600
+              text-white
+              flex
+              items-center
+              justify-center
+              text-2xl
+              font-bold
+              shadow-lg
+            "
+          >
+            👥
+          </div>
+        </div>
+      </div>
+{applications.length === 0 ? (
+  <div
+    className="
+      bg-white
+      rounded-3xl
+      p-10
+      text-center
+      shadow-sm
+    "
+  >
+    <h2 className="text-2xl font-semibold">
+      No Applications Yet
+    </h2>
+
+    <p className="text-gray-500 mt-3">
+      Applications will appear here when students apply.
+    </p>
+  </div>
+) : (
+  <div className="grid gap-6">
+    {applications.map((app) => (
+      <div
+        key={app._id}
+        className="
+          bg-white
+          rounded-3xl
+          p-6
+          shadow-sm
+          hover:shadow-xl
+          transition-all
+          border
+          border-gray-100
+        "
+      >
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+
+          <div>
+            <h2 className="text-2xl font-bold text-gray-900">
+              {app.studentId?.name}
+            </h2>
+
+            <p className="text-gray-500 mt-1">
+              {app.studentId?.email}
+            </p>
+
+            <p className="text-gray-700 mt-3">
+              Applied For:
+              {" "}
+              <span className="font-semibold">
+                {app.jobId?.title}
+              </span>
+            </p>
+
+            <p className="text-gray-500 mt-1">
+              Applied:
+              {" "}
+              {new Date(
+                app.createdAt
+              ).toLocaleDateString()}
+            </p>
+          </div>
+
+          <div className="flex flex-col items-start md:items-end gap-3">
+
+            <span
+              className={`
+                px-4
+                py-2
+                rounded-full
+                text-sm
+                font-semibold
+                ${
+                  app.status === "Selected"
+                    ? "bg-green-100 text-green-700"
+                    : app.status === "Rejected"
+                    ? "bg-red-100 text-red-700"
+                    : app.status === "Shortlisted"
+                    ? "bg-yellow-100 text-yellow-700"
+                    : "bg-blue-100 text-blue-700"
+                }
+              `}
+            >
+              {app.status}
+            </span>
+
+            <a
+              href={`/company/applications/${app._id}`}
               className="
-                bg-white
-                shadow
-                rounded
-                p-5
+                bg-blue-600
+                hover:bg-blue-700
+                text-white
+                px-5
+                py-3
+                rounded-xl
+                transition-all
               "
             >
-              <h2 className="font-bold">
-                {
-                  app.jobId
-                    ?.title
-                }
-              </h2>
+              View Details
+            </a>
 
-              <p>
-                Student:{" "}
-                {
-                  app
-                    .studentId
-                    ?.name
-                }
-              </p>
-
-              <p>
-                Email:{" "}
-                {
-                  app
-                    .studentId
-                    ?.email
-                }
-              </p>
-
-              <p>
-                Status:{" "}
-                {
-                  app.status
-                }
-              </p>
-
-              <div className="mt-4 space-y-2">
-                <input
-                  type="date"
-                  value={
-                    interviewDate
-                  }
-                  onChange={(e) =>
-                    setInterviewDate(
-                      e.target.value
-                    )
-                  }
-                  className="
-                    border
-                    p-2
-                    rounded
-                    w-full
-                  "
-                />
-
-                <input
-                  type="time"
-                  value={
-                    interviewTime
-                  }
-                  onChange={(e) =>
-                    setInterviewTime(
-                      e.target.value
-                    )
-                  }
-                  className="
-                    border
-                    p-2
-                    rounded
-                    w-full
-                  "
-                />
-
-                <input
-                  placeholder="Meeting Link"
-                  value={
-                    meetingLink
-                  }
-                  onChange={(e) =>
-                    setMeetingLink(
-                      e.target.value
-                    )
-                  }
-                  className="
-                    border
-                    p-2
-                    rounded
-                    w-full
-                  "
-                />
-
-                <button
-                  onClick={() =>
-                    scheduleInterview(
-                      app._id
-                    )
-                  }
-                  className="
-                    bg-blue-600
-                    text-white
-                    px-4
-                    py-2
-                    rounded
-                  "
-                >
-                  Schedule Interview
-                </button>
-              </div>
-
-              <a
-                href={
-                  app.resumeUrl
-                }
-                target="_blank"
-                rel="noreferrer"
-                className="
-                  text-blue-600
-                "
-              >
-                View Resume
-              </a>
-
-              <div className="flex gap-2 mt-4">
-                <button
-                  onClick={() =>
-                    updateStatus(
-                      app._id,
-                      "Shortlisted"
-                    )
-                  }
-                  className="
-                    bg-yellow-500
-                    text-white
-                    px-3
-                    py-2
-                    rounded
-                  "
-                >
-                  Shortlist
-                </button>
-
-                <button
-                  onClick={() =>
-                    updateStatus(
-                      app._id,
-                      "Selected"
-                    )
-                  }
-                  className="
-                    bg-green-600
-                    text-white
-                    px-3
-                    py-2
-                    rounded
-                  "
-                >
-                  Select
-                </button>
-
-                <button
-                  onClick={() =>
-                    updateStatus(
-                      app._id,
-                      "Rejected"
-                    )
-                  }
-                  className="
-                    bg-red-600
-                    text-white
-                    px-3
-                    py-2
-                    rounded
-                  "
-                >
-                  Reject
-                </button>
-              </div>
-                  <div className="mt-4">
-  <input
-    type="file"
-    accept=".pdf"
-    onChange={async (
-      e
-    ) => {
-      const file =
-        e.target.files?.[0];
-
-      if (!file)
-        return;
-
-      const formData =
-        new FormData();
-
-      formData.append(
-        "file",
-        file
-      );
-
-      formData.append(
-        "applicationId",
-        app._id
-      );
-
-      const res =
-        await fetch(
-          "/api/company/upload-offer-letter",
-          {
-            method:
-              "POST",
-            body:
-              formData,
-          }
-        );
-
-      const data =
-        await res.json();
-
-      if (
-        data.success
-      ) {
-        alert(
-          "Offer Letter Uploaded"
-        );
-
-        window.location.reload();
-      }
-    }}
-    className="
-      border
-      p-2
-      rounded
-      w-full
-    "
-  />
-</div>
-            </div>
-          )
-        )}
+          </div>
+        </div>
       </div>
-    </div>
-  );
+    ))}
+  </div>
+)}
+      </main>
+  </div>
+);
 }

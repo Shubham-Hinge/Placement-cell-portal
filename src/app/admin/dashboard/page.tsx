@@ -1,16 +1,23 @@
 "use client";
 
+import AdminSidebar from "@/components/admin/sidebar";
 import Link from "next/link";
 
 import {
+  ResponsiveContainer,
   BarChart,
   Bar,
   XAxis,
   YAxis,
   Tooltip,
-  ResponsiveContainer,
+  PieChart,
+  Pie,
+  Cell,
+  Legend,
+  LineChart,
+  Line,
+  CartesianGrid,
 } from "recharts";
-
 import {
   useEffect,
   useState,
@@ -24,10 +31,23 @@ export default function AdminDashboard() {
   const [stats, setStats] =
     useState<any>(null);
 
+    const [adminName, setAdminName] =
+  useState("");
+
   const [analytics, setAnalytics] =
     useState<any>(null);
 
+  const [topSkills, setTopSkills] =
+    useState<any[]>([]);
+  const [trends, setTrends] =
+  useState<any[]>([]);
+
   useEffect(() => {
+    setAdminName(
+  localStorage.getItem(
+    "userName"
+  ) || "Admin"
+);
     const userRole =
       localStorage.getItem(
         "userRole"
@@ -60,6 +80,21 @@ export default function AdminDashboard() {
               data.stats
             );
           }
+          const trendsRes =
+  await fetch(
+    "/api/admin/placement-trends"
+  );
+
+const trendsData =
+  await trendsRes.json();
+
+if (
+  trendsData.success
+) {
+  setTrends(
+    trendsData.trends
+  );
+}
 
           const analyticsRes =
             await fetch(
@@ -74,6 +109,22 @@ export default function AdminDashboard() {
           ) {
             setAnalytics(
               analyticsData.analytics
+            );
+          }
+
+          const skillsRes =
+            await fetch(
+              "/api/admin/top-skills"
+            );
+
+          const skillsData =
+            await skillsRes.json();
+
+          if (
+            skillsData.success
+          ) {
+            setTopSkills(
+              skillsData.skills
             );
           }
         } catch (error) {
@@ -123,6 +174,32 @@ export default function AdminDashboard() {
         stats.selected,
     },
   ];
+
+  const statusData = [
+    {
+      name: "Applied",
+      value:
+        stats.applications -
+        stats.selected,
+    },
+    {
+      name: "Selected",
+      value: stats.selected,
+    },
+  ];
+ const COLORS = [
+  "#22c55e", // Green
+  "#3b82f6", // Blue
+  "#f59e0b", // Orange
+  "#ef4444", // Red
+];
+  const skillsChartData =
+    topSkills.map(
+      (skill) => ({
+        name: skill._id,
+        count: skill.count,
+      })
+    );
 
   const downloadPDF =
     async () => {
@@ -221,228 +298,242 @@ export default function AdminDashboard() {
           error
         );
       }
-    };
+     
+    }; 
+return (
+ <div className="flex min-h-screen bg-gray-50">
+  <AdminSidebar />
 
-  return (
-    <div className="p-10">
-      
-      <div className="flex items-center justify-between mb-8">
-        <h1 className="text-3xl font-bold">
-          Admin Dashboard 
-        </h1>
+  <main className="flex-1 p-6 md:p-10">
 
-        <div className="flex gap-3">
-          <button
-            onClick={
-              downloadPDF
-            }
-            className="
-              bg-blue-600
-              text-white
-              px-4
-              py-2
-              rounded-lg
-            "
-          >
-            PDF Report
-          </button>
+    {/* Header */}
+    <div className="mb-10">
+      <div className="bg-white rounded-3xl shadow-sm border border-gray-100 px-8 py-6 flex items-center justify-between">
+        <div>
+          <p className="text-sm font-medium text-blue-600 mb-2">
+            Administration Portal
+          </p>
 
-          <button
-            onClick={
-              downloadExcel
-            }
-            className="
-              bg-green-600
-              text-white
-              px-4
-              py-2
-              rounded-lg
-            "
-          >
-            Excel Report
-          </button>
+          <h1 className="text-4xl font-bold text-gray-900">
+            Admin Dashboard
+          </h1>
 
-          <button
-            onClick={() => {
-              localStorage.clear();
-              window.location.href =
-                "/login";
-            }}
-            className="
-              flex
-              items-center
-              gap-2
-              bg-red-500
-              hover:bg-red-600
-              text-white
-              font-medium
-              px-5
-              py-2.5
-              rounded-xl
-              shadow-md
-              hover:shadow-lg
-              transition-all
-              duration-300
-            "
-          >
-            Logout
-          </button>
+          <p className="text-gray-500 mt-2">
+            Manage users, companies, placements and analytics.
+          </p>
+        </div>
+
+        <div className="flex items-center gap-4">
+          <Link href="/admin/profile">
+            <div className="h-14 w-14 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white flex items-center justify-center text-xl font-bold shadow-lg cursor-pointer">
+              {adminName?.charAt(0)?.toUpperCase()}
+            </div>
+          </Link>
+
         </div>
       </div>
+    </div>
 
+    {/* Quick Actions */}
+    <div className="grid md:grid-cols-3 gap-6 mb-8">
       <Link
         href="/admin/users"
-        className="
-          bg-white
-          shadow
-          rounded
-          p-6
-          block
-          hover:shadow-lg
-        "
+        className="bg-white rounded-3xl shadow-sm border border-gray-100 p-6 hover:shadow-xl transition-all"
       >
         <h2 className="font-bold text-xl">
           User Management
         </h2>
 
-        <p>
-          Manage Students,
-          Companies &
-          Mentors
+        <p className="text-gray-500 mt-2">
+          Manage students, companies and mentors.
         </p>
       </Link>
 
+      <button
+        onClick={downloadPDF}
+        className="bg-white rounded-3xl shadow-sm border border-gray-100 p-6 text-left hover:shadow-xl transition-all"
+      >
+        <h2 className="font-bold text-xl">
+          PDF Reports
+        </h2>
+
+        <p className="text-gray-500 mt-2">
+          Download placement reports.
+        </p>
+      </button>
+
+      <button
+        onClick={downloadExcel}
+        className="bg-white rounded-3xl shadow-sm border border-gray-100 p-6 text-left hover:shadow-xl transition-all"
+      >
+        <h2 className="font-bold text-xl">
+          Excel Reports
+        </h2>
+
+        <p className="text-gray-500 mt-2">
+          Export placement data.
+        </p>
+      </button>
+    </div>
+
+    {/* KPI Cards */}
+    <div className="grid md:grid-cols-5 gap-6 mb-8">
+      <div className="bg-blue-100 rounded-3xl p-6 shadow-sm">
+        <h2 className="font-bold">Users</h2>
+        <p className="text-4xl mt-3 font-bold">{stats.users}</p>
+      </div>
+
+      <div className="bg-green-100 rounded-3xl p-6 shadow-sm">
+        <h2 className="font-bold">Students</h2>
+        <p className="text-4xl mt-3 font-bold">{stats.students}</p>
+      </div>
+
+      <div className="bg-yellow-100 rounded-3xl p-6 shadow-sm">
+        <h2 className="font-bold">Companies</h2>
+        <p className="text-4xl mt-3 font-bold">{stats.companies}</p>
+      </div>
+
+      <div className="bg-purple-100 rounded-3xl p-6 shadow-sm">
+        <h2 className="font-bold">Jobs</h2>
+        <p className="text-4xl mt-3 font-bold">{stats.jobs}</p>
+      </div>
+
+      <div className="bg-red-100 rounded-3xl p-6 shadow-sm">
+        <h2 className="font-bold">Applications</h2>
+        <p className="text-4xl mt-3 font-bold">{stats.applications}</p>
+      </div>
+    </div>
+
+    {/* Analytics Summary */}
+    {analytics && (
+      <div className="grid md:grid-cols-3 gap-6 mb-8">
+        <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-6">
+          <h2 className="font-bold">Placement Rate</h2>
+          <p className="text-4xl mt-3 font-bold text-green-600">
+            {analytics.placementRate}%
+          </p>
+        </div>
+
+        <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-6">
+          <h2 className="font-bold">Total Applications</h2>
+          <p className="text-4xl mt-3 font-bold text-blue-600">
+            {analytics.totalApplications}
+          </p>
+        </div>
+
+        <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-6">
+          <h2 className="font-bold">Selected Students</h2>
+          <p className="text-4xl mt-3 font-bold text-purple-600">
+            {analytics.selectedStudents}
+          </p>
+        </div>
+      </div>
+    )}
+
+    {/* Charts */}
+    <div className="grid lg:grid-cols-2 gap-6">
+
+      <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-6">
+        <h2 className="text-xl font-bold mb-6">
+          Placement Analytics
+        </h2>
+
+        <ResponsiveContainer width="100%" height={350}>
+          <BarChart data={chartData}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="name" />
+            <YAxis />
+            <Tooltip />
+            <Bar
+              dataKey="value"
+              fill="#2563eb"
+              radius={[8, 8, 0, 0]}
+            />
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+
       {analytics && (
-        <div className="grid md:grid-cols-3 gap-6 mt-8">
-          <div className="bg-green-100 rounded p-6">
-            <h2 className="font-bold">
-              Placement Rate
-            </h2>
+        <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-6">
+          <h2 className="text-xl font-bold mb-6">
+            Application Status
+          </h2>
 
-            <p className="text-3xl mt-2">
-              {
-                analytics.placementRate
-              }
-              %
-            </p>
-          </div>
+          <ResponsiveContainer width="100%" height={350}>
+            <PieChart>
+              <Pie
+                data={statusData}
+                dataKey="value"
+                nameKey="name"
+                outerRadius={120}
+                label
+              >
+                {statusData.map((_: any, index: number) => (
+                  <Cell
+                    key={index}
+                    fill={COLORS[index % COLORS.length]}
+                  />
+                ))}
+              </Pie>
 
-          <div className="bg-blue-100 rounded p-6">
-            <h2 className="font-bold">
-              Applications
-            </h2>
-
-            <p className="text-3xl mt-2">
-              {
-                analytics.totalApplications
-              }
-            </p>
-          </div>
-
-          <div className="bg-yellow-100 rounded p-6">
-            <h2 className="font-bold">
-              Selected
-            </h2>
-
-            <p className="text-3xl mt-2">
-              {
-                analytics.selectedStudents
-              }
-            </p>
-          </div>
+              <Tooltip />
+              <Legend />
+            </PieChart>
+          </ResponsiveContainer>
         </div>
       )}
 
-      <div className="grid md:grid-cols-3 gap-6">
-        <div className="bg-white shadow rounded p-6">
-          <h2 className="font-bold">
-            Total Users
-          </h2>
-
-          <p className="text-3xl mt-2">
-            {stats.users}
-          </p>
-        </div>
-
-        <div className="bg-white shadow rounded p-6">
-          <h2 className="font-bold">
-            Students
-          </h2>
-
-          <p className="text-3xl mt-2">
-            {stats.students}
-          </p>
-        </div>
-
-        <div className="bg-white shadow rounded p-6">
-          <h2 className="font-bold">
-            Companies
-          </h2>
-
-          <p className="text-3xl mt-2">
-            {stats.companies}
-          </p>
-        </div>
-
-        <div className="bg-white shadow rounded p-6">
-          <h2 className="font-bold">
-            Jobs
-          </h2>
-
-          <p className="text-3xl mt-2">
-            {stats.jobs}
-          </p>
-        </div>
-
-        <div className="bg-white rounded shadow p-6 mt-10">
+      {topSkills.length > 0 && (
+        <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-6">
           <h2 className="text-xl font-bold mb-6">
-            Placement Analytics
+            Top Student Skills
           </h2>
 
-          <ResponsiveContainer
-            width="100%"
-            height={350}
-          >
-            <BarChart
-              data={
-                chartData
-              }
-            >
-              <XAxis
-                dataKey="name"
-              />
-
+          <ResponsiveContainer width="100%" height={350}>
+            <BarChart data={skillsChartData}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
               <YAxis />
-
               <Tooltip />
-
               <Bar
-                dataKey="value"
+                dataKey="count"
+                fill="#8b5cf6"
+                radius={[8, 8, 0, 0]}
               />
             </BarChart>
           </ResponsiveContainer>
         </div>
+      )}
 
-        <div className="bg-white shadow rounded p-6">
-          <h2 className="font-bold">
-            Applications
+      {trends.length > 0 && (
+        <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-6">
+          <h2 className="text-xl font-bold mb-6">
+            Placement Trends
           </h2>
 
-          <p className="text-3xl mt-2">
-            {stats.applications}
-          </p>
-        </div>
+          <ResponsiveContainer width="100%" height={350}>
+            <LineChart data={trends}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="month" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
 
-        <div className="bg-white shadow rounded p-6">
-          <h2 className="font-bold">
-            Selected Students
-          </h2>
-
-          <p className="text-3xl mt-2">
-            {stats.selected}
-          </p>
+              <Line
+                type="monotone"
+                dataKey="applications"
+                stroke="#2563eb"
+                strokeWidth={3}
+                dot={{ fill: "#2563eb", r: 5 }}
+                activeDot={{ r: 8 }}
+              />
+            </LineChart>
+          </ResponsiveContainer>
         </div>
-      </div>
+      )}
+
     </div>
-  );
-}
+    </main>
+  </div>
+);
+  }

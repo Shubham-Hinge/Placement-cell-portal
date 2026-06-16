@@ -3,16 +3,63 @@ import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/mongodb";
 import Job from "@/models/Job";
 
-export async function GET() {
+export async function GET(
+  req: Request
+) {
   try {
     await connectDB();
 
+    const { searchParams } =
+      new URL(req.url);
+
+    const search =
+      searchParams.get(
+        "search"
+      );
+
+    const skill =
+      searchParams.get(
+        "skill"
+      );
+
+    const query: any = {
+      isActive: true,
+    };
+
+    if (search) {
+      query.$or = [
+        {
+          title: {
+            $regex: search,
+            $options: "i",
+          },
+        },
+        {
+          companyName: {
+            $regex: search,
+            $options: "i",
+          },
+        },
+        {
+          location: {
+            $regex: search,
+            $options: "i",
+          },
+        },
+      ];
+    }
+
+    if (skill) {
+      query.skills = {
+        $in: [skill],
+      };
+    }
+
     const jobs =
-      await Job.find({
-        isActive: true,
-      }).sort({
-        createdAt: -1,
-      });
+      await Job.find(query)
+        .sort({
+          createdAt: -1,
+        });
 
     return NextResponse.json({
       success: true,

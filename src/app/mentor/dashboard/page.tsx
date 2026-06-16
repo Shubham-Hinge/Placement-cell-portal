@@ -1,10 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import MentorSidebar from "@/components/mentor/sidebar";
 
 export default function MentorDashboard() {
   const [analytics, setAnalytics] =
     useState<any>(null);
+
+  const [loading, setLoading] =
+    useState(true);
 
   useEffect(() => {
     const role =
@@ -20,8 +24,12 @@ export default function MentorDashboard() {
       return;
     }
 
-    const load =
-      async () => {
+    loadAnalytics();
+  }, []);
+
+  const loadAnalytics =
+    async () => {
+      try {
         const res =
           await fetch(
             "/api/admin/analytics"
@@ -37,78 +45,187 @@ export default function MentorDashboard() {
             data.analytics
           );
         }
-      };
+      } catch (error) {
+        console.error(
+          "Analytics Error:",
+          error
+        );
+      } finally {
+        setLoading(
+          false
+        );
+      }
+    };
 
-    load();
-  }, []);
-
-  if (!analytics) {
+  if (loading) {
     return (
-      <div className="p-10">
-        Loading...
+      <div className="flex h-screen bg-gray-50">
+        <MentorSidebar />
+
+        <main className="flex-1 p-10">
+          Loading...
+        </main>
       </div>
     );
   }
 
   return (
-    <div className="p-10">
+    <div className="flex h-screen bg-gray-50 overflow-hidden">
+      <MentorSidebar />
 
-      <div className="flex justify-between mb-8">
+      <main className="flex-1 overflow-y-auto p-6 md:p-10">
 
-        <h1 className="text-3xl font-bold">
-          Mentor Dashboard
-        </h1>
+        <div className="mb-10">
+          <div
+            className="
+              bg-white
+              rounded-3xl
+              shadow-sm
+              border
+              border-gray-100
+              p-8
+              flex
+              justify-between
+              items-center
+            "
+          >
+            <div>
+              <p className="text-blue-600 font-medium mb-2">
+                Mentor Portal
+              </p>
 
-        <button
-          onClick={() => {
-            localStorage.clear();
-            window.location.href =
-              "/login";
-          }}
-          className="
-            bg-red-500
-            text-white
-            px-5
-            py-2
-            rounded-xl
-          "
-        >
-          Logout
-        </button>
+              <h1 className="text-4xl font-bold">
+                Mentor Dashboard
+              </h1>
 
-      </div>
+              <p className="text-gray-500 mt-2">
+                Guide students and track placement progress.
+              </p>
+            </div>
 
-      <div className="grid md:grid-cols-4 gap-6">
-
-        <div className="bg-blue-100 p-6 rounded">
-          <h2>Total Applications</h2>
-          <p className="text-3xl">
-            {
-              analytics.totalApplications
-            }
-          </p>
+            <div
+              className="
+                w-16
+                h-16
+                rounded-full
+                bg-gradient-to-r
+                from-blue-600
+                to-indigo-600
+                text-white
+                flex
+                items-center
+                justify-center
+                text-2xl
+              "
+            >
+              🎓
+            </div>
+          </div>
         </div>
 
-        <div className="bg-green-100 p-6 rounded">
-          <h2>Selected</h2>
-          <p className="text-3xl">
-            {
-              analytics.selectedStudents
-            }
-          </p>
+        <div className="grid md:grid-cols-4 gap-6 mb-8">
+
+          <div className="bg-blue-100 rounded-3xl p-6">
+            <h2 className="font-semibold">
+              Applications
+            </h2>
+
+            <p className="text-4xl font-bold mt-3">
+              {
+                analytics?.totalApplications ||
+                0
+              }
+            </p>
+          </div>
+
+          <div className="bg-green-100 rounded-3xl p-6">
+            <h2 className="font-semibold">
+              Selected
+            </h2>
+
+            <p className="text-4xl font-bold mt-3">
+              {
+                analytics?.selectedStudents ||
+                0
+              }
+            </p>
+          </div>
+
+          <div className="bg-yellow-100 rounded-3xl p-6">
+            <h2 className="font-semibold">
+              Placement Rate
+            </h2>
+
+            <p className="text-4xl font-bold mt-3">
+              {
+                analytics?.placementRate ||
+                0
+              }%
+            </p>
+          </div>
+
+          <div className="bg-purple-100 rounded-3xl p-6">
+            <h2 className="font-semibold">
+              Companies
+            </h2>
+
+            <p className="text-4xl font-bold mt-3">
+              {
+                analytics?.totalCompanies ||
+                0
+              }
+            </p>
+          </div>
+
         </div>
 
-        <div className="bg-yellow-100 p-6 rounded">
-          <h2>Placement Rate</h2>
-          <p className="text-3xl">
-            {
-              analytics.placementRate
-            }%
-          </p>
+        <div className="grid lg:grid-cols-2 gap-6">
+
+          <div
+            className="
+              bg-white
+              rounded-3xl
+              shadow-sm
+              border
+              border-gray-100
+              p-8
+            "
+          >
+            <h2 className="text-xl font-bold mb-4">
+              Placement Insights
+            </h2>
+
+            <p className="text-gray-500">
+              Monitor student placement
+              performance, interview
+              success and hiring trends.
+            </p>
+          </div>
+
+          <div
+            className="
+              bg-white
+              rounded-3xl
+              shadow-sm
+              border
+              border-gray-100
+              p-8
+            "
+          >
+            <h2 className="text-xl font-bold mb-4">
+              Mentor Activities
+            </h2>
+
+            <p className="text-gray-500">
+              Track mentoring sessions,
+              career guidance and
+              student progress.
+            </p>
+          </div>
+
         </div>
 
-      </div>
-
+      </main>
     </div>
   );
 }

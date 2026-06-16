@@ -1,5 +1,7 @@
 "use client";
 
+import DashboardButton from "@/components/common/DashboardButton";
+import CompanySidebar from "@/components/company/sidebar";
 import {
   useEffect,
   useState,
@@ -145,126 +147,270 @@ export default function EditJobPage() {
       }
     };
 
-  return (
-    <div className="max-w-4xl mx-auto p-10">
+ return (
+  <div className="flex min-h-screen bg-gray-50">
+    <CompanySidebar />
 
-      <h1 className="text-3xl font-bold mb-8">
-        Edit Job
-      </h1>
+    <main className="flex-1 p-6 md:p-10">
+    <DashboardButton
+    href="/company/dashboard"
+  />
+      {/* Header */}
+      <div className="mb-10">
+        <div
+          className="
+            bg-white
+            rounded-3xl
+            shadow-sm
+            border
+            border-gray-100
+            px-8
+            py-6
+            flex
+            items-center
+            justify-between
+          "
+        >
+          <div>
+            <p className="text-sm font-medium text-blue-600 mb-2">
+              Job Management
+            </p>
 
-      <form
-        onSubmit={
-          handleSubmit
-        }
-        className="space-y-4"
+            <h1 className="text-4xl font-bold text-gray-900">
+              Edit Job
+            </h1>
+
+            <p className="text-gray-500 mt-2">
+              Update job details, requirements,
+              and application settings.
+            </p>
+          </div>
+
+          <div
+            className="
+              h-16
+              w-16
+              rounded-full
+              bg-gradient-to-r
+              from-blue-600
+              to-indigo-600
+              text-white
+              flex
+              items-center
+              justify-center
+              text-2xl
+              font-bold
+              shadow-lg
+            "
+          >
+            💼
+          </div>
+        </div>
+      </div>
+
+      {/* Form Card */}
+      <div
+        className="
+          bg-white
+          rounded-3xl
+          shadow-sm
+          border
+          border-gray-100
+          p-8
+          max-w-5xl
+        "
       >
-        <input
-          name="title"
-          value={
-            form.title
-          }
-          onChange={
-            handleChange
-          }
-          className="border p-3 rounded w-full"
-        />
-
-        <textarea
-          name="description"
-          value={
-            form.description
-          }
-          onChange={
-            handleChange
-          }
-          className="border p-3 rounded w-full"
-          rows={5}
-        />
-
-        <input
-          name="location"
-          value={
-            form.location
-          }
-          onChange={
-            handleChange
-          }
-          className="border p-3 rounded w-full"
-        />
-
-        <input
-          name="salary"
-          value={
-            form.salary
-          }
-          onChange={
-            handleChange
-          }
-          className="border p-3 rounded w-full"
-        />
-
-        <input
-          name="skills"
-          value={
-            form.skills
-          }
-          onChange={
-            handleChange
-          }
-          className="border p-3 rounded w-full"
-        />
-
-        <select
-          name="jobType"
-          value={
-            form.jobType
-          }
-          onChange={
-            handleChange
-          }
-          className="border p-3 rounded w-full"
+        <form
+          onSubmit={handleSubmit}
+          className="space-y-6"
         >
-          <option>
-            Full Time
-          </option>
 
-          <option>
-            Internship
-          </option>
+          <div>
+            <label className="block mb-2 font-medium">
+              Job Title
+            </label>
 
-          <option>
-            Part Time
-          </option>
+            <input
+              name="title"
+              value={form.title}
+              onChange={handleChange}
+              className="
+                border
+                border-gray-200
+                p-3
+                rounded-xl
+                w-full
+              "
+            />
+          </div>
 
-          <option>
-            Remote
-          </option>
-        </select>
+          <div>
+            <label className="block mb-2 font-medium">
+              Description
+            </label>
 
-        <input
-          type="date"
-          name="lastDate"
-          value={
-            form.lastDate
-          }
-          onChange={
-            handleChange
-          }
-          className="border p-3 rounded w-full"
-        />
+            <textarea
+              name="description"
+              value={form.description}
+              onChange={handleChange}
+              rows={6}
+              className="
+                border
+                border-gray-200
+                p-3
+                rounded-xl
+                w-full
+              "
+            />
+          </div>
 
-        <button
-          type="submit"
-          disabled={
-            loading
-          }
-          className="bg-blue-600 text-white px-6 py-3 rounded"
-        >
-          {loading
-            ? "Updating..."
-            : "Update Job"}
-        </button>
-      </form>
-    </div>
-  );
+          <div className="grid md:grid-cols-2 gap-6">
+
+            <div>
+              <label className="block mb-2 font-medium">
+                Location
+              </label>
+
+              <input
+                name="location"
+                value={form.location}
+                onChange={handleChange}
+                className="
+                  border
+                  border-gray-200
+                  p-3
+                  rounded-xl
+                  w-full
+                "
+              />
+            </div>
+
+            <div>
+              <label className="block mb-2 font-medium">
+                Salary
+              </label>
+
+              <input
+                name="salary"
+                value={form.salary}
+                onChange={handleChange}
+                className="
+                  border
+                  border-gray-200
+                  p-3
+                  rounded-xl
+                  w-full
+                "
+              />
+            </div>
+
+          </div>
+
+          <div>
+            <label className="block mb-2 font-medium">
+              Required Skills
+            </label>
+
+            <input
+              name="skills"
+              value={form.skills}
+              onChange={handleChange}
+              placeholder="React, Next.js, MongoDB"
+              className="
+                border
+                border-gray-200
+                p-3
+                rounded-xl
+                w-full
+              "
+            />
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6">
+
+            <div>
+              <label className="block mb-2 font-medium">
+                Job Type
+              </label>
+
+              <select
+                name="jobType"
+                value={form.jobType}
+                onChange={handleChange}
+                className="
+                  border
+                  border-gray-200
+                  p-3
+                  rounded-xl
+                  w-full
+                "
+              >
+                <option value="Full Time">
+                  Full Time
+                </option>
+
+                <option value="Internship">
+                  Internship
+                </option>
+
+                <option value="Part Time">
+                  Part Time
+                </option>
+
+                <option value="Remote">
+                  Remote
+                </option>
+              </select>
+            </div>
+
+            <div>
+              <label className="block mb-2 font-medium">
+                Application Deadline
+              </label>
+
+              <input
+                type="date"
+                name="lastDate"
+                value={form.lastDate}
+                onChange={handleChange}
+                className="
+                  border
+                  border-gray-200
+                  p-3
+                  rounded-xl
+                  w-full
+                "
+              />
+            </div>
+
+          </div>
+
+          <div className="pt-4">
+            <button
+              type="submit"
+              disabled={loading}
+              className="
+                bg-blue-600
+                hover:bg-blue-700
+                text-white
+                px-8
+                py-3
+                rounded-xl
+                font-medium
+                transition-all
+                disabled:opacity-50
+              "
+            >
+              {loading
+                ? "Updating..."
+                : "Update Job"}
+            </button>
+          </div>
+
+        </form>
+      </div>
+
+    </main>
+  </div>
+);
 }
