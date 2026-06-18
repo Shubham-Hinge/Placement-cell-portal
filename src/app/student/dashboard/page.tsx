@@ -412,12 +412,36 @@ if (
         ))}
       </div>
     </div>
+         {/* Career Assistant */}
+         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"> 
+    <h2 className="text-2xl font-bold mb-6"> Career Assistant
+    </h2>
+        <Link
+  href="/student/assistant"
+  className="
+    bg-white
+    shadow
+    rounded
+    p-6
+    hover:shadow-lg
+    transition
+  "
+>
+  <h2 className="text-xl font-bold">
+    🤖 AI Career Assistant
+  </h2>
+
+  <p className="mt-2">
+    Resume Review, Career Guidance,
+    Interview Questions and Placement Tips
+  </p>
+</Link>
+</div>
 
     {/* Quick Actions */}
     <h2 className="text-2xl font-bold mb-6">
       Quick Actions
-    </h2>
-
+    </h2>  
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       <Link
         href="/student/profile"
@@ -522,8 +546,8 @@ if (
     View assigned mentor details.
   </p>
 </Link>
-    </div>
+    </div> 
 </main>
-</div>
+</div>  
 );
 }

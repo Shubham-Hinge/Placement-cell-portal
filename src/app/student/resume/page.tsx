@@ -1,8 +1,67 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
 import DashboardButton from "@/components/common/DashboardButton";
 export default function StudentResumePage() {
+  const [file, setFile] =
+  useState<File | null>(null);
+
+const [uploading, setUploading] =
+  useState(false);
+
+const [resumeUrl, setResumeUrl] =
+  useState("");
+
+  const uploadResume = async () => {
+  if (!file) {
+    alert("Please select a PDF.");
+    return;
+  }
+
+  try {
+    setUploading(true);
+
+    const formData = new FormData();
+
+    formData.append("file", file);
+
+    formData.append(
+      "userId",
+      localStorage.getItem("userId") || ""
+    );
+
+    const res = await fetch(
+      "/api/student/upload-resume",
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
+
+    const data = await res.json();
+
+    if (data.success) {
+      setResumeUrl(
+        data.resumeUrl
+      );
+
+      alert(
+        "Resume uploaded successfully."
+      );
+    } else {
+      alert(
+        data.message
+      );
+    }
+  } catch (error) {
+    console.error(error);
+
+    alert("Upload failed.");
+  }
+
+  setUploading(false);
+};
   return (
     <div className="min-h-screen bg-gray-50 p-6 md:p-10">
         <DashboardButton
@@ -25,33 +84,62 @@ export default function StudentResumePage() {
           Upload Resume
         </h2>
 
-        <input
-          type="file"
-          accept=".pdf,.doc,.docx"
-          className="
-            block
-            w-full
-            border
-            border-gray-300
-            rounded-xl
-            p-3
-          "
-        />
+       <input
+  type="file"
+  accept=".pdf"
+  onChange={(e) => {
+    if (
+      e.target.files &&
+      e.target.files.length > 0
+    ) {
+      setFile(
+        e.target.files[0]
+      );
+    }
+  }}
+  className="
+    block
+    w-full
+    border
+    border-gray-300
+    rounded-xl
+    p-3
+  "
+/>
+      <button
+  onClick={uploadResume}
+  disabled={!file || uploading}
+  className="
+    mt-4
+    bg-blue-600
+    hover:bg-blue-700
+    disabled:bg-gray-400
+    text-white
+    px-5
+    py-3
+    rounded-xl
+    font-medium
+  "
+>
+  {uploading
+    ? "Uploading..."
+    : "Upload Resume"}
+</button>
+{resumeUrl && (
+  <div className="mt-4">
+    <p className="text-green-600 font-medium">
+      Resume uploaded successfully!
+    </p>
 
-        <button
-          className="
-            mt-4
-            bg-blue-600
-            hover:bg-blue-700
-            text-white
-            px-5
-            py-3
-            rounded-xl
-            font-medium
-          "
-        >
-          Upload Resume
-        </button>
+    <a
+      href={resumeUrl}
+      target="_blank"
+      className="text-blue-600 underline"
+    >
+      View Resume
+    </a>
+  </div>
+)}
       </div>
 
       {/* Resume Score */}

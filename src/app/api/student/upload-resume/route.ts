@@ -1,25 +1,70 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+import { writeFile, unlink } from "fs/promises";
+import fs from "fs";
+import path from "path";
 
+import { connectDB } from "@/lib/mongodb";
 import cloudinary from "@/lib/cloudinary";
 
+import StudentProfile from "@/models/StudentProfile";
+
 export async function POST(
-  req: Request
+  req: NextRequest
 ) {
   try {
+    await connectDB();
+
     const formData =
       await req.formData();
 
     const file =
       formData.get("file") as File;
 
-    if (!file) {
+    const userId =
+      formData.get("userId") as string;
+
+    if (!file || !userId) {
       return NextResponse.json(
         {
           success: false,
           message:
-            "Resume file required",
+            "File and User ID are required",
         },
-        { status: 400 }
+        {
+          status: 400,
+        }
+      );
+    }
+
+    if (
+      file.type !==
+      "application/pdf"
+    ) {
+      return NextResponse.json(
+        {
+          success: false,
+          message:
+            "Only PDF files are allowed",
+        },
+        {
+          status: 400,
+        }
+      );
+    }
+
+    if (
+      file.size >
+      5 * 1024 * 1024
+    ) {
+      return NextResponse.json(
+        {
+          success: false,
+          message:
+            "Maximum file size is 5MB",
+        },
+        {
+          status: 400,
+        }
       );
     }
 
@@ -29,46 +74,101 @@ export async function POST(
     const buffer =
       Buffer.from(bytes);
 
-    const result =
-      await new Promise<any>(
-        (resolve, reject) => {
-          cloudinary.uploader
-            .upload_stream(
-              {
-                folder:
-                  "placement-portal/resumes",
+    const tempDir =
+      path.join(
+        process.cwd(),
+        "tmp"
+      );
 
-                resource_type:
-                  "raw",
-              },
-              (
-                error,
-                result
-              ) => {
-                if (error)
-                  reject(error);
-                else
-                  resolve(result);
-              }
-            )
-            .end(buffer);
+    if (
+      !fs.existsSync(
+        tempDir
+      )
+    ) {
+      fs.mkdirSync(
+        tempDir
+      );
+    }
+
+    const tempPath =
+      path.join(
+        tempDir,
+        `resume-${Date.now()}.pdf`
+      );
+
+    await writeFile(
+      tempPath,
+      buffer
+    );
+
+    const upload =
+  await cloudinary.uploader.upload(
+    tempPath,
+    {
+      resource_type:
+        "image",
+      folder:
+        "placement-portal/resumes",
+      public_id:
+        `resume-${userId}`,
+      overwrite: true,
+      format: "pdf",
+    }
+  );
+    await unlink(tempPath);
+
+    const resumeUrl =
+      upload.secure_url;
+
+    const profile =
+      await StudentProfile.findOneAndUpdate(
+        {
+          userId,
+        },
+        {
+          $set: {
+            resumeUrl,
+          },
+        },
+        {
+          returnDocument:
+            "after",
         }
       );
 
+    if (!profile) {
+      return NextResponse.json(
+        {
+          success: false,
+          message:
+            "Student profile not found. Please complete your profile first.",
+        },
+        {
+          status: 404,
+        }
+      );
+    }
+
     return NextResponse.json({
       success: true,
-      url: result.secure_url,
+      resumeUrl,
     });
-  } catch (error) {
-    console.error(error);
+  } catch (error: any) {
+    console.error(
+      "UPLOAD ERROR:",
+      error
+    );
 
     return NextResponse.json(
       {
         success: false,
         message:
-          "Upload failed",
+          error.message ||
+          "Resume upload failed",
       },
-      { status: 500 }
+      {
+        status: 500,
+      }
     );
   }
 }
