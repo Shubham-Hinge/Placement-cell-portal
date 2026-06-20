@@ -5,158 +5,188 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 export default function Sidebar() {
-const pathname = usePathname();
-const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+  const [open, setOpen] = useState(false);
 
-const menuItems = [
-{
-name: "Dashboard",
-href: "/student/dashboard",
-icon: "🏠",
-},
-{
-name: "Profile",
-href: "/student/profile",
-icon: "👤",
-},
-{
-  name: "Resume",
-  href: "/student/resume",
-  icon: "📄",
-},
-{
-name: "Jobs",
-href: "/student/jobs",
-icon: "💼",
-},
-{
-name: "Applications",
-href: "/student/applications",
-icon: "📋",
-},
-];
+  const menuItems = [
+    {
+      name: "Dashboard",
+      href: "/student/dashboard",
+      icon: "🏠",
+    },
+    {
+      name: "Profile",
+      href: "/student/profile",
+      icon: "👤",
+    },
+    {
+      name: "Resume",
+      href: "/student/resume",
+      icon: "📄",
+    },
+    {
+      name: "Jobs",
+      href: "/student/jobs",
+      icon: "💼",
+    },
+    {
+      name: "Applications",
+      href: "/student/applications",
+      icon: "📋",
+    },
+    {
+      name: "Mentor",
+      href: "/student/mentor",
+      icon: "🧑‍🏫",
+    },
+    {
+      name: "Career AI",
+      href: "/student/assistant",
+      icon: "🚀",
+    },
+    {
+      name: "Settings",
+      href: "/student/settings",
+      icon: "⚙️",
+    },
+  ];
 
-return (
-<>
-{/* Mobile Menu Button */}
-<button
-onClick={() => setOpen(true)}
-className="
-md:hidden
-fixed
-top-4
-left-4
-z-50
-bg-white
-shadow-lg
-rounded-xl
-px-3
-py-2
-"
->
-☰ </button>
-
-```
-{/* Mobile Overlay */}
-{open && (
-  <div
-    className="
-      fixed
-      inset-0
-      bg-black/50
-      z-40
-      md:hidden
-    "
-    onClick={() => setOpen(false)}
-  />
-)}
-
-{/* Sidebar */}
-<aside
-  className={`
-    fixed
-    md:static
-    top-0
-    left-0
-    h-screen
-    w-64
-    bg-white
-    border-r
-    shadow-sm
-    z-50
-    transition-transform
-    duration-300
-    ${
-      open
-        ? "translate-x-0"
-        : "-translate-x-full md:translate-x-0"
-    }
-  `}
->
-  {/* Logo */}
-  <div className="p-6 border-b">
-    <h2 className="text-xl font-bold text-gray-800">
-      Student Portal
-    </h2>
-  </div>
-
-  {/* Navigation */}
-  <nav className="p-4 space-y-2">
-    {menuItems.map((item) => (
-      <Link
-        key={item.href}
-        href={item.href}
-        onClick={() => setOpen(false)}
-        className={`
-          flex
-          items-center
-          gap-3
-          px-4
-          py-3
+  return (
+    <>
+      {/* Mobile Menu Button */}
+      <button
+        onClick={() => setOpen(true)}
+        className="
+          md:hidden
+          fixed
+          top-4
+          left-4
+          z-50
+          bg-white
+          dark:bg-gray-900
+          shadow-lg
           rounded-xl
-          transition-all
+          px-3
+          py-2
+        "
+      >
+        ☰
+      </button>
+
+      {/* Mobile Overlay */}
+      {open && (
+        <div
+          className="
+            fixed
+            inset-0
+            bg-black/50
+            z-40
+            md:hidden
+          "
+          onClick={() => setOpen(false)}
+        />
+      )}
+
+      {/* Sidebar */}
+      <aside
+        className={`
+          fixed
+          md:static
+          top-0
+          left-0
+          h-screen
+          w-64
+          bg-white
+          dark:bg-gray-900
+          border-r
+          dark:border-gray-800
+          shadow-sm
+          z-50
+          flex
+          flex-col
+          transition-transform
+          duration-300
           ${
-            pathname === item.href
-              ? "bg-blue-600 text-white"
-              : "text-gray-700 hover:bg-gray-100"
+            open
+              ? "translate-x-0"
+              : "-translate-x-full md:translate-x-0"
           }
         `}
       >
-        <span className="text-lg">
-          {item.icon}
-        </span>
+        {/* Logo */}
+        <div className="p-6 border-b dark:border-gray-800 flex-shrink-0">
+          <h2 className="text-xl font-bold text-gray-800 dark:text-white">
+            Student Portal
+          </h2>
+        </div>
 
-        <span>
-          {item.name}
-        </span>
-      </Link>
-    ))}
-  </nav>
+        {/* Scrollable Navigation */}
+        <div
+          className="
+            flex-1
+            overflow-y-auto
+            p-4
+            pb-24
+            scrollbar-thin
+            scrollbar-thumb-gray-300
+            dark:scrollbar-thumb-gray-700
+          "
+        >
+          <nav className="space-y-2">
+            {menuItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setOpen(false)}
+                className={`
+                  flex
+                  items-center
+                  gap-3
+                  px-4
+                  py-3
+                  rounded-xl
+                  font-medium
+                  transition-all
+                  duration-200
+                  ${
+                    pathname === item.href
+                      ? "bg-blue-600 text-white shadow-md"
+                      : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+                  }
+                `}
+              >
+                <span className="text-xl">
+                  {item.icon}
+                </span>
 
-  {/* Logout */}
-  <div className="absolute bottom-0 w-full p-4 border-t bg-white">
-    <button
-      onClick={() => {
-        localStorage.clear();
-        window.location.href = "/login";
-      }}
-      className="
-        w-full
-        bg-red-500
-        hover:bg-red-600
-        text-white
-        py-3
-        rounded-xl
-        font-medium
-        transition-all
-      "
-    >
-      Logout
-    </button>
-  </div>
-</aside>
-```
+                <span>{item.name}</span>
+              </Link>
+            ))}
+          </nav>
+        </div>
 
-</>
-);
+        {/* Fixed Logout */}
+        <div className="border-t dark:border-gray-800 p-4 flex-shrink-0 bg-white dark:bg-gray-900">
+          <button
+            onClick={() => {
+              localStorage.clear();
+              window.location.href = "/login";
+            }}
+            className="
+              w-full
+              bg-red-500
+              hover:bg-red-600
+              text-white
+              py-3
+              rounded-xl
+              font-medium
+              transition-all
+            "
+          >
+            Logout
+          </button>
+        </div>
+      </aside>
+    </>
+  );
 }

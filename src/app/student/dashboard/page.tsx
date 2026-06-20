@@ -418,24 +418,47 @@ if (
     </h2>
         <Link
   href="/student/assistant"
-  className="
+   className="
     bg-white
-    shadow
-    rounded
+    rounded-3xl
+    border
+    border-gray-100
     p-6
     hover:shadow-lg
-    transition
+    transition-all
   "
 >
-  <h2 className="text-xl font-bold">
+  <h2 className="font-bold text-xl">
     🤖 AI Career Assistant
   </h2>
 
-  <p className="mt-2">
+    <p className="text-gray-500 mt-2">
     Resume Review, Career Guidance,
     Interview Questions and Placement Tips
   </p>
 </Link>
+
+      <Link
+  href="/student/mentor"
+  className="
+    bg-white
+    rounded-3xl
+    border
+    border-gray-100
+    p-6
+    hover:shadow-lg
+    transition-all
+  "
+>
+  <h2 className="font-bold text-xl">
+    My Mentor
+  </h2>
+
+  <p className="text-gray-500 mt-2">
+    View assigned mentor details.
+  </p>
+</Link>
+      
 </div>
 
     {/* Quick Actions */}
@@ -465,7 +488,7 @@ if (
       </Link>
 
       <Link
-        href="/student/profile"
+        href="/student/resume"
         className="
           bg-white
           rounded-2xl
@@ -526,27 +549,7 @@ if (
           Track Job Applications
         </p>
       </Link>
-      <Link
-  href="/student/mentor"
-  className="
-    bg-white
-    rounded-3xl
-    border
-    border-gray-100
-    p-6
-    hover:shadow-lg
-    transition-all
-  "
->
-  <h2 className="font-bold text-xl">
-    My Mentor
-  </h2>
-
-  <p className="text-gray-500 mt-2">
-    View assigned mentor details.
-  </p>
-</Link>
-    </div> 
+      </div>
 </main>
 </div>  
 );
