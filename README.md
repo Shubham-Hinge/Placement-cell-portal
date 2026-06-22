@@ -1,536 +1,222 @@
-# Campus Placement Portal
+# 🎓 Placement Cell Portal
 
-## Project Overview
+<p align="center">
 
-Campus Placement Portal is a Full Stack Web Application designed to automate and simplify the campus recruitment process. The platform acts as a centralized system connecting Students, Companies, Mentors, and Administrators for managing placements, job postings, applications, analytics, and reports.
+![Next.js](https://img.shields.io/badge/Next.js-16-black?style=for-the-badge\&logo=next.js)
+![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge\&logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=for-the-badge\&logo=typescript)
+![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-47A248?style=for-the-badge\&logo=mongodb)
+![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?style=for-the-badge\&logo=tailwindcss)
+![Gemini AI](https://img.shields.io/badge/Google-Gemini_AI-4285F4?style=for-the-badge\&logo=google)
+![Cloudinary](https://img.shields.io/badge/Cloudinary-Image_Storage-3448C5?style=for-the-badge\&logo=cloudinary)
+![JWT](https://img.shields.io/badge/JWT-Authentication-000000?style=for-the-badge)
+![License](https://img.shields.io/badge/License-Educational-blue?style=for-the-badge)
 
-The system eliminates manual placement management by providing role-based dashboards, secure authentication, cloud database integration, responsive design, analytics, reporting, and job management capabilities.
-
-Built using Next.js, TypeScript, MongoDB Atlas, Tailwind CSS, JWT Authentication, and deployed on Vercel, the platform provides a modern and scalable recruitment management solution.
-
----
-
-# Live Demo
-
-Frontend URL:
-
-```text
-https://placement-cell-portal-xi.vercel.app
-```
-
-GitHub Repository:
-
-```text
-https://github.com/Shubham-Hinge/Placement-cell-portal
-```
+</p>
 
 ---
 
-# Objectives
+# 📌 Project Overview
 
-* Digitize the campus placement process.
-* Provide a centralized recruitment platform.
-* Enable students to discover and apply for jobs.
-* Allow companies to manage recruitment efficiently.
-* Provide mentors with placement monitoring capabilities.
-* Enable administrators to monitor placement activities.
-* Generate placement analytics and reports.
-* Improve transparency and efficiency throughout recruitment.
+The **Placement Cell Portal** is a modern AI-powered campus recruitment platform designed to simplify and automate the placement process for educational institutions.
+
+The application provides dedicated portals for **Students**, **Companies**, **Mentors**, and **Administrators**, allowing them to collaborate through a secure and scalable recruitment ecosystem.
+
+The platform integrates **Google Gemini AI** for resume analysis, **Cloudinary** for cloud-based resume storage, **MongoDB Atlas** for data persistence, and **JWT Authentication** for secure role-based access.
 
 ---
 
-# Technology Stack
+# 🚀 Key Features
 
-## Frontend
+## 👨‍🎓 Student Module
 
-* Next.js 15
-* React.js
-* TypeScript
-* Tailwind CSS
-
-## Backend
-
-* Next.js API Routes
-* Node.js
-
-## Database
-
-* MongoDB Atlas
-* Mongoose ODM
-
-## Authentication & Security
-
-* JWT Authentication
-* bcryptjs Password Hashing
-* Protected Routes
-* Role-Based Access Control
-
-## Reporting
-
-* jsPDF
-* jspdf-autotable
-* xlsx
-
-## Data Visualization
-
-* Recharts
-
-## Deployment
-
-* Vercel
-* MongoDB Atlas
-
----
-
-# System Architecture
-
-```text
-Frontend (Next.js)
-        │
-        ▼
-API Routes (Next.js)
-        │
-        ▼
-MongoDB Atlas
-        │
-        ▼
-Role-Based Dashboards
-```
-
----
-
-# User Roles
-
-## Student
-
-Students can:
-
-* Register Account
-* Login Securely
-* Manage Profile
-* Upload Resume
-* Browse Available Jobs
+* Student Registration & Login
+* Profile Management
+* Resume Upload
+* AI Resume Analysis
+* ATS Resume Score
+* Career AI Assistant
+* Recommended Jobs
 * Apply for Jobs
-* Track Applications
-* View Placement Updates
-* Monitor Career Progress
-
----
-
-## Company
-
-Companies can:
-
-* Register Company Account
-* Login Securely
-* Create Job Postings
-* Manage Existing Jobs
-* View Applicants
-* Review Applications
-* Monitor Recruitment Activities
-* Access Company Dashboard
-* View Placement Analytics
-
----
-
-## Mentor
-
-Mentors can:
-
-* Access Mentor Dashboard
-* Monitor Student Progress
-* View Placement Statistics
-* Analyze Placement Activities
-* Guide Students Through Recruitment Process
-
----
-
-## Admin
-
-Administrators can:
-
-* Manage Users
-* Manage Students
-* Manage Companies
-* Manage Mentors
-* Manage Placement Activities
-* View System Analytics
-* Generate Reports
-* Monitor Overall Platform Activity
-
----
-
-# Core Features
-
-## Authentication Module
-
-### Registration
-
-Supports:
-
-* Student Registration
-* Company Registration
-* Mentor Registration
-* Admin Registration
-
-### Login
-
-Features:
-
-* JWT Authentication
-* Secure Login System
-* Role-Based Dashboard Redirection
-
-### Security
-
-Includes:
-
-* Password Hashing
-* Protected Routes
-* Secure API Access
-* Role Validation
-
----
-
-# Landing Page
-
-The Landing Page provides:
-
-* Project Introduction
-* Platform Features
-* Login Navigation
-* Registration Navigation
-* Public Job Listings
-* Dark Mode / Light Mode Toggle
-* Mobile Responsive Design
-
----
-
-# Dark Mode & Light Mode
-
-Implemented Features:
-
-* Theme Toggle
-* Persistent Theme Selection
-* Mobile Compatibility
-* Dashboard Compatibility
-* Improved Accessibility
-
----
-
-# Student Module
-
-## Student Dashboard
-
-Provides:
-
-* Placement Overview
 * Application Tracking
-* Profile Access
-* Job Discovery
-
-### Student Features
-
-* View Jobs
-* Apply for Jobs
-* Manage Profile
-* Upload Resume
-* Monitor Applications
+* Mentor Information
+* Student Analytics
+* Student Settings
 
 ---
 
-# Company Module
+## 🏢 Company Module
 
-## Company Dashboard
-
-Provides quick access to:
-
-* Create Job
+* Company Registration
+* Company Profile
+* Create Job Posts
 * Manage Jobs
 * View Applicants
-* Analytics
-
-### Job Management
-
-Companies can:
-
-* Create Jobs
-* View Jobs
-* Update Jobs
-* Delete Jobs
-
-### Recruitment Management
-
-Companies can:
-
-* Review Applications
-* Manage Recruitment Workflow
-* Monitor Job Performance
+* Update Application Status
+* Company Analytics
+* Company Settings
 
 ---
 
-# Public Job Portal
+## 👨‍🏫 Mentor Module
 
-## Features
-
-* Publicly Accessible Job Listings
-* Dynamic Job Retrieval from MongoDB
-* Responsive Interface
-* Real-Time Job Availability
-
-### Apply Workflow
-
-```text
-Visitor
-   │
-   ▼
-View Jobs
-   │
-   ▼
-Apply
-   │
-   ▼
-Login Required Modal
-   │
-   ├── Login
-   └── Register
-```
-
-### Student Workflow
-
-```text
-Student Login
-      │
-      ▼
-View Jobs
-      │
-      ▼
-Apply
-      │
-      ▼
-Application Processing
-```
+* Mentor Dashboard
+* Assigned Students
+* Resume Score Monitoring
+* Student Analytics
+* Performance Insights
+* Mentor Settings
 
 ---
 
-# Mentor Module
-
-## Mentor Dashboard
-
-Displays:
-
-* Placement Statistics
-* Student Progress
-* Recruitment Insights
-
-Mentors can monitor placement activities and provide guidance to students.
-
----
-
-# Admin Module
-
-## Admin Dashboard
-
-Displays:
-
-* Total Users
-* Total Students
-* Total Companies
-* Total Mentors
-* Total Jobs
-* Placement Analytics
-* Reports
-
-### Administrative Functions
+## ⚙️ Admin Module
 
 * User Management
-* Placement Monitoring
-* Analytics Review
-* Report Generation
-
----
-
-# Analytics Module
-
-Provides:
-
+* Dashboard Analytics
+* Mentor Assignment
+* Reports
 * Placement Statistics
-* Job Statistics
-* Student Analytics
-* Company Analytics
-* Recruitment Insights
-
-Visualization implemented using Recharts.
+* System Monitoring
+* Admin Settings
 
 ---
 
-# Reporting Module
+## 🤖 AI Features
 
-## PDF Reports
-
-Export:
-
-* Placement Data
-* User Data
-* Job Data
-* Analytics Information
-
-## Excel Reports
-
-Export:
-
-* Placement Records
-* Recruitment Statistics
-* Student Information
+* Resume Analysis
+* ATS Score Generation
+* Resume Summary
+* Skill Gap Detection
+* Missing Skills
+* Resume Suggestions
+* Career AI Assistant
 
 ---
 
-# Database Design
+## 🌙 Additional Features
 
-## Users Collection
-
-Stores:
-
-* Name
-* Email
-* Password
-* Role
-* Profile Information
-
----
-
-## Jobs Collection
-
-Stores:
-
-* Company ID
-* Company Name
-* Job Title
-* Description
-* Skills
-* Salary
-* Location
-* Job Type
-* Last Date
-* Active Status
+* Role-Based Authentication
+* JWT Security
+* Email Verification
+* Forgot Password
+* Dark / Light Theme
+* Mobile Responsive Design
+* Cloud Resume Storage
+* Production Deployment
+* REST APIs
+* Modern UI/UX
 
 ---
 
-## Applications Collection
+# 🛠 Tech Stack
 
-Stores:
-
-* Student Information
-* Job Information
-* Application Status
-* Application Date
+| Category        | Technology                       |
+| --------------- | -------------------------------- |
+| Frontend        | Next.js 16, React 19, TypeScript |
+| Styling         | Tailwind CSS                     |
+| Backend         | Next.js API Routes               |
+| Database        | MongoDB Atlas + Mongoose         |
+| Authentication  | JWT                              |
+| AI              | Google Gemini 2.5 Flash          |
+| Cloud Storage   | Cloudinary                       |
+| Deployment      | Vercel                           |
+| Version Control | Git & GitHub                     |
 
 ---
 
-# API Endpoints
-
-## Authentication APIs
+# 🏗 System Architecture
 
 ```text
-POST /api/auth/register
-POST /api/auth/login
-```
-
-## Job APIs
-
-```text
-GET /api/jobs
-POST /api/jobs
-```
-
-## Dashboard APIs
-
-```text
-GET /api/admin/*
-GET /api/company/*
-GET /api/student/*
-GET /api/mentor/*
-```
-
----
-
-# Project Workflow
-
-## Recruitment Workflow
-
-```text
-User Registration
+Students
+Companies
+Mentors
+Admin
         │
         ▼
-Login
+Next.js Frontend (React + TypeScript)
         │
         ▼
-Role Verification
+Next.js API Routes
+        │
+ ┌──────────────┬───────────────┬───────────────┐
+ │              │               │               │
+ ▼              ▼               ▼               ▼
+MongoDB     Gemini AI     Cloudinary      JWT Auth
+ Atlas     Resume AI     Resume Storage    Security
         │
         ▼
-Dashboard Access
-        │
-        ▼
-Company Creates Job
-        │
-        ▼
-Job Stored in MongoDB
-        │
-        ▼
-Public Jobs Page Updated
-        │
-        ▼
-Student Views Job
-        │
-        ▼
-Student Applies
-        │
-        ▼
-Application Processing
-        │
-        ▼
-Placement Monitoring
-        │
-        ▼
-Analytics & Reports
+Interactive Dashboards
 ```
 
 ---
 
-# Environment Variables
+# 📂 Project Modules
 
-Create a `.env.local` file:
+* Student Portal
+* Company Portal
+* Mentor Portal
+* Admin Portal
+* AI Resume Analyzer
+* Career AI Assistant
+* Job Management
+* Application Management
+* Analytics Dashboard
+* Settings Module
 
-```env
-MONGODB_URI=your_mongodb_connection_string
+---
+---
 
-JWT_SECRET=your_jwt_secret
+# 📁 Project Structure
 
-NEXTAUTH_SECRET=your_nextauth_secret
-
-NEXTAUTH_URL=http://localhost:3000
-
-EMAIL_USER=your_email@gmail.com
-
-EMAIL_PASS=your_email_password
-```
-
-For Production:
-
-```env
-NEXTAUTH_URL=https://your-vercel-domain.vercel.app
+```text
+placement-cell-portal/
+│
+├── docs/
+     ├── screenshots/    
+│
+│── public/
+│
+├── src/
+│   ├── app/
+│   │   ├── admin/
+│   │   ├── company/
+│   │   ├── mentor/
+│   │   ├── student/
+│   │   ├── login/
+│   │   ├── register/
+│   │   ├── api/
+│   │   └── page.tsx
+│   │
+│   ├── components/
+│   │
+│   ├── lib/
+│   │
+│   ├── models/
+│   │
+│   ├── middleware.ts
+│   │
+│   └── utils/
+│
+├── .env.local
+├── package.json
+├── tsconfig.json
+├── next.config.ts
+└── README.md
 ```
 
 ---
 
-# Installation Guide
+# ⚙️ Installation
 
-## Clone Repository
+## Clone the Repository
 
 ```bash
-git clone <repository-url>
-cd campus-placement-portal
+git clone https://github.com/<your-username>/placement-cell-portal.git
+
+cd placement-cell-portal
 ```
+
+---
 
 ## Install Dependencies
 
@@ -538,13 +224,15 @@ cd campus-placement-portal
 npm install
 ```
 
+---
+
 ## Run Development Server
 
 ```bash
 npm run dev
 ```
 
-Application URL:
+The application will be available at:
 
 ```text
 http://localhost:3000
@@ -552,15 +240,15 @@ http://localhost:3000
 
 ---
 
-# Production Build
-
-## Build
+## Build for Production
 
 ```bash
 npm run build
 ```
 
-## Start
+---
+
+## Start Production Server
 
 ```bash
 npm start
@@ -568,150 +256,574 @@ npm start
 
 ---
 
-# Deployment
+# 🔐 Environment Variables
 
-## Frontend Hosting
-
-* Vercel
-
-## Database Hosting
-
-* MongoDB Atlas
-
-## Deployment Process
-
-1. Push code to GitHub.
-2. Connect repository to Vercel.
-3. Configure environment variables.
-4. Deploy automatically.
-5. Monitor production logs.
-
----
-
-# Project Structure
+Create a file named:
 
 ```text
-src
-│
-├── app
-│   ├── admin
-│   ├── company
-│   ├── student
-│   ├── mentor
-│   ├── jobs
-│   ├── login
-│   ├── register
-│   ├── api
-│   └── page.tsx
-│
-├── components
-│   ├── ThemeToggle.tsx
-│
-├── lib
-│
-├── models
-│   ├── User.ts
-│   ├── Job.ts
-│   └── Application.ts
-│
-├── public
-│
-└── types
+.env.local
+```
+
+Add the following environment variables:
+
+```env
+# MongoDB
+MONGODB_URI=your_mongodb_connection_string
+
+# Authentication
+JWT_SECRET=your_jwt_secret
+NEXTAUTH_SECRET=your_nextauth_secret
+NEXTAUTH_URL=http://localhost:3000
+
+# Gemini AI
+GEMINI_API_KEY=your_gemini_api_key
+
+# Cloudinary
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
+
+# Email Configuration
+EMAIL_USER=your_email@gmail.com
+EMAIL_PASS=your_app_password
+
+# Application URL
+NEXT_PUBLIC_APP_URL=http://localhost:3000
 ```
 
 ---
 
-# Security Features
+# 🚀 Deployment
 
-Implemented:
+The application is deployed using **Vercel**.
+
+## Deployment Steps
+
+1. Push the project to GitHub.
+2. Import the repository into Vercel.
+3. Configure all environment variables.
+4. Deploy the application.
+5. Connect MongoDB Atlas.
+6. Configure Cloudinary.
+7. Configure Google Gemini API.
+8. Verify production deployment.
+
+---
+
+# 🌐 External Services
+
+## MongoDB Atlas
+
+Used for:
+
+* User Management
+* Student Profiles
+* Job Listings
+* Applications
+* Resume Analysis
+
+---
+
+## Google Gemini AI
+
+Provides:
+
+* Resume Analysis
+* ATS Score
+* Resume Summary
+* Skill Recommendations
+* Career Suggestions
+
+---
+
+## Cloudinary
+
+Used for:
+
+* Resume Upload
+* Cloud Storage
+* Secure File Access
+
+---
+
+## Gmail SMTP
+
+Used for:
+
+* Email Verification
+* Forgot Password
+* Password Reset Notifications
+
+---
+
+# 📸 Screenshots
+ 
+
+
+| Module            | Screenshot                               |
+| ----------------- | ---------------------------------------- |
+| Landing Page      | `docs/screenshots/landing.png`           |
+| Login             | `docs/screenshots/login.png`             |
+| Register          | `docs/screenshots/register.png`          |
+| Student Dashboard | `docs/screenshots/student-dashboard.png` |
+| Company Dashboard | `docs/screenshots/company-dashboard.png` |
+| Mentor Dashboard  | `docs/screenshots/mentor-dashboard.png`  |
+| Admin Dashboard   | `docs/screenshots/admin-dashboard.png`   |
+| Resume Analysis   | `docs/screenshots/resume-analysis.png`   |
+| AI Assistant      | `docs/screenshots/ai-assistant.png`      |
+| Analytics         | `docs/screenshots/analytics.png`         |
+
+---
+
+# 📊 Project Statistics
+
+| Item                   |  Count |
+| ---------------------- | -----: |
+| User Roles             |      4 |
+| Dashboards             |      4 |
+| AI Modules             |      2 |
+| Database Collections   |      5 |
+| API Routes             |    35+ |
+| Responsive Pages       |    30+ |
+| Authentication Modules |      6 |
+| Deployment Platform    | Vercel |
+
+---
+---
+
+# 🗄 Database Overview
+
+The Placement Cell Portal uses **MongoDB Atlas** as its primary database with **Mongoose ODM** for schema management.
+
+## Database Collections
+
+| Collection      | Purpose                          |
+| --------------- | -------------------------------- |
+| Users           | Authentication & Role Management |
+| StudentProfiles | Student Information              |
+| Jobs            | Job Postings                     |
+| Applications    | Job Applications                 |
+| ResumeAnalysis  | AI Resume Reports                |
+
+---
+
+# 🔄 System Workflow
+
+```text
+Student / Company / Mentor / Admin
+                │
+                ▼
+      JWT Authentication
+                │
+                ▼
+      Next.js Frontend
+                │
+                ▼
+      Next.js API Routes
+                │
+      ┌─────────┼─────────┐
+      ▼         ▼         ▼
+ MongoDB    Gemini AI   Cloudinary
+  Atlas     Resume AI   File Storage
+      │
+      ▼
+Dashboard & Analytics
+```
+
+---
+
+# 🔗 API Overview
+
+The project follows a RESTful API architecture.
+
+## Authentication APIs
+
+* Register User
+* Login User
+* Logout
+* Verify Email
+* Forgot Password
+* Reset Password
+
+---
+
+## Student APIs
+
+* Student Profile
+* Update Profile
+* Upload Resume
+* Resume Analysis
+* Recommended Jobs
+* Dashboard Data
+
+---
+
+## Company APIs
+
+* Company Profile
+* Create Job
+* Manage Jobs
+* View Applications
+* Company Analytics
+
+---
+
+## Mentor APIs
+
+* Assigned Students
+* Mentor Dashboard
+* Mentor Analytics
+
+---
+
+## Admin APIs
+
+* User Management
+* Dashboard Analytics
+* Reports
+* Mentor Assignment
+* System Statistics
+
+---
+
+# 🔒 Security Features
+
+The application implements several security best practices:
 
 * JWT Authentication
+* Role-Based Authorization
+* Protected API Routes
 * Password Hashing
-* Protected Routes
-* Role Validation
-* Environment Variable Security
-* MongoDB Atlas Security
+* HTTP-Only Authentication Cookies
 * Input Validation
+* Secure Environment Variables
+* MongoDB Access Control
+* Cloudinary Secure Uploads
 
 ---
 
-# Testing Summary
+# 📈 Analytics Modules
 
-## Authentication Testing
+## Student Dashboard
 
-* Registration
-* Login
-* Logout
-* Role Redirection
+* Resume Score
+* Applications
+* Recommended Jobs
 
-## Job Management Testing
+---
 
-* Create Job
-* Fetch Jobs
-* Public Job Listing
+## Company Dashboard
 
-## Dashboard Testing
+* Total Jobs
+* Total Applications
+* Hiring Status
 
-* Student Dashboard
-* Company Dashboard
-* Mentor Dashboard
-* Admin Dashboard
+---
 
-## UI Testing
+## Mentor Dashboard
 
+* Assigned Students
+* Resume Scores
+* Placement Readiness
+* Student Performance
+
+---
+
+## Admin Dashboard
+
+* Total Users
+* Students
+* Companies
+* Mentors
+* Jobs
+* Applications
+* Placement Statistics
+
+---
+
+# 🤖 AI Features
+
+Google Gemini AI powers several intelligent features:
+
+* ATS Resume Scoring
+* Resume Summary
+* Resume Strengths
+* Weakness Detection
+* Missing Skills
+* Resume Improvement Suggestions
+* Career AI Assistant
+
+---
+
+# 📱 Responsive Design
+
+The application is fully responsive and optimized for:
+
+* Desktop
+* Laptop
+* Tablet
+* Mobile
+
+Supported features include:
+
+* Responsive Navigation
+* Mobile Sidebar
+* Dark / Light Theme
+* Adaptive Dashboard Layouts
+
+---
+
+# 🚀 Performance Optimizations
+
+* Server Components
+* Client Components
+* API Route Optimization
+* Lazy Loading
+* Optimized Images
+* MongoDB Query Optimization
+* Cloud Storage Integration
+
+---
+
+# 🎯 Learning Outcomes
+
+During this project, the following concepts were applied:
+
+* Full Stack Development
+* Next.js App Router
+* React & TypeScript
+* MongoDB Database Design
+* REST API Development
+* JWT Authentication
+* Cloudinary Integration
+* AI Integration with Gemini
+* Responsive UI Design
+* Production Deployment
+* Git & GitHub Workflow
+
+---
+
+# 🚧 Challenges Faced
+
+* Multi-role authentication
+* Resume parsing and analysis
+* AI integration
+* Cloud storage management
+* Responsive dashboard design
+* MongoDB schema relationships
+* Secure deployment
+* Performance optimization
+
+---
+
+# 🔮 Future Enhancements
+
+* AI Interview Preparation
+* Resume Builder
+* Coding Assessment Platform
+* Video Interview Support
+* Push Notifications
+* Alumni Portal
+* Placement Prediction using Machine Learning
+* Mobile Application (Android & iOS)
+* Multi-College Support
+* Advanced Reporting Dashboard
+
+---
+---
+
+# 🤝 Contributing
+
+Contributions are welcome!
+
+If you would like to improve this project:
+
+1. Fork the repository.
+2. Create a feature branch.
+3. Commit your changes.
+4. Push the branch.
+5. Open a Pull Request.
+
+---
+
+# 🧪 Testing
+
+The project has been manually tested for the following modules:
+
+| Module              | Status |
+| ------------------- | :----: |
+| User Authentication |    ✅   |
+| Student Module      |    ✅   |
+| Company Module      |    ✅   |
+| Mentor Module       |    ✅   |
+| Admin Module        |    ✅   |
+| Resume Upload       |    ✅   |
+| AI Resume Analysis  |    ✅   |
+| Job Management      |    ✅   |
+| Job Applications    |    ✅   |
+| Mentor Assignment   |    ✅   |
+| Analytics Dashboard |    ✅   |
+| Settings Module     |    ✅   |
+| Dark / Light Theme  |    ✅   |
+| Responsive Design   |    ✅   |
+
+---
+
+# 📈 Project Highlights
+
+✔ Full Stack Next.js Application
+
+✔ Role-Based Authentication
+
+✔ AI-Powered Resume Analysis
+
+✔ ATS Resume Scoring
+
+✔ Google Gemini AI Integration
+
+✔ Cloudinary Resume Storage
+
+✔ MongoDB Atlas Database
+
+✔ Responsive User Interface
+
+✔ Student Dashboard
+
+✔ Company Dashboard
+
+✔ Mentor Dashboard
+
+✔ Admin Dashboard
+
+✔ Placement Analytics
+
+✔ JWT Authentication
+
+✔ Secure REST APIs
+
+✔ Mobile Responsive Design
+
+✔ Production Ready Architecture
+
+---
+
+# 📌 Roadmap
+
+### Completed
+
+* Authentication System
+* Student Portal
+* Company Portal
+* Mentor Portal
+* Admin Portal
+* Resume Upload
+* AI Resume Analyzer
+* Career AI Assistant
+* Job Management
+* Application Tracking
+* Analytics Dashboard
+* Settings Module
 * Responsive Design
-* Mobile Compatibility
-* Dark Mode
-* Light Mode
+* Deployment
 
-## Deployment Testing
+### Planned
 
-* Vercel Deployment
-* MongoDB Connectivity
-* Environment Variables
-
----
-
-# Future Enhancements
-
-* AI Resume Screening
-* AI Skill Matching
-* Real-Time Notifications
-* Interview Scheduling
-* Video Interview Integration
-* In-App Messaging
+* AI Mock Interviews
+* Resume Builder
+* Online Coding Assessment
+* Notification System
+* Alumni Network
 * Mobile Application
-* Placement Prediction System
-* Career Guidance Module
+* Video Interview Platform
+* Placement Prediction using Machine Learning
 
 ---
 
-# Project Status
+# 👨‍💻 Developer
 
-| Module            | Status      |
-| ----------------- | ----------- |
-| Authentication    | ✅ Completed |
-| Student Portal    | ✅ Completed |
-| Company Portal    | ✅ Completed |
-| Mentor Portal     | ✅ Completed |
-| Admin Portal      | ✅ Completed |
-| Public Job Portal | ✅ Completed |
-| Job Management    | ✅ Completed |
-| Analytics         | ✅ Completed |
-| Reporting         | ✅ Completed |
-| Dark/Light Mode   | ✅ Completed |
-| Deployment        | ✅ Completed |
+## Shubham Hinge
 
-## Overall Completion
+**M.Sc. Computer Science**
 
-**Project Status: 100% Completed**
+**Full Stack Developer**
+
+### Technical Skills
+
+* Next.js
+* React
+* TypeScript
+* Tailwind CSS
+* MongoDB
+* Mongoose
+* JWT Authentication
+* Google Gemini AI
+* Cloudinary
+* Git & GitHub
+* REST APIs
 
 ---
 
-# Developer
+# 📬 Contact
 
-**Shubham Hinge**
-M.Sc. Computer Science
+For feedback, suggestions, or collaboration:
 
-**Campus Placement Portal**
-Full Stack Placement Management System
+* **Developer:** Shubham Hinge
+* **Project:** Placement Cell Portal
+
+ 
+
+* GitHub: https://github.com/Shubham-Hinge
+* LinkedIn: https://www.linkedin.com/in/shubhamhinge
+* Portfolio: https://portfolio.com
+* Email: shubham.hinge1074@gmail.com
+
+---
+
+# 📄 License
+
+This project is developed for **educational and portfolio purposes**.
+
+You are free to learn from the implementation. Please provide appropriate credit before reusing substantial portions of the project.
+
+---
+
+# 🙏 Acknowledgements
+
+Special thanks to:
+
+* Next.js Team
+* React Team
+* MongoDB Atlas
+* Tailwind CSS
+* Google Gemini AI
+* Cloudinary
+* Vercel
+
+for providing the technologies and services that made this project possible.
+
+---
+
+# ⭐ Support
+
+If you found this project useful:
+
+* ⭐ Star the repository
+* 🍴 Fork the repository
+* 📢 Share it with others
+* 💡 Provide feedback
+
+---
+
+<div align="center">
+
+# 🎓 Placement Cell Portal
+
+### AI-Powered Campus Recruitment Platform
+
+**Version:** **v1.0.0**
+
+Developed with ❤️ by **Shubham Hinge**
+
+**© 2026 Shubham Hinge. All Rights Reserved.**
+
+</div>

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DashboardButton from "@/components/common/DashboardButton";
 
 export default function StudentResumePage() {
@@ -20,6 +20,45 @@ export default function StudentResumePage() {
   const [analysis, setAnalysis] =
     useState<any>(null);
 
+  const loadResumeData = async () => {
+    try {
+      const userId =
+        localStorage.getItem("userId");
+
+      if (!userId) return;
+
+      const res = await fetch(
+        `/api/student/resume?userId=${userId}`
+      );
+
+      const data =
+        await res.json();
+
+      if (data.success) {
+        if (data.resumeUrl) {
+          setResumeUrl(
+            data.resumeUrl
+          );
+        }
+
+        if (data.analysis) {
+          setAnalysis(
+            data.analysis
+          );
+        }
+      }
+    } catch (error) {
+      console.error(
+        "Load Resume Error:",
+        error
+      );
+    }
+  };
+
+  useEffect(() => {
+    loadResumeData();
+  }, []);
+
   const uploadResume = async () => {
     if (!file) {
       alert("Please select a PDF.");
@@ -29,13 +68,19 @@ export default function StudentResumePage() {
     try {
       setUploading(true);
 
-      const formData = new FormData();
+      const formData =
+        new FormData();
 
-      formData.append("file", file);
+      formData.append(
+        "file",
+        file
+      );
 
       formData.append(
         "userId",
-        localStorage.getItem("userId") || ""
+        localStorage.getItem(
+          "userId"
+        ) || ""
       );
 
       const res = await fetch(
@@ -46,34 +91,54 @@ export default function StudentResumePage() {
         }
       );
 
-     const text = await res.text();
+      const text =
+        await res.text();
 
-let data;
+      let data;
 
-try {
-  data = JSON.parse(text);
-} catch {
-  console.error("API Response:", text);
+      try {
+        data =
+          JSON.parse(text);
+      } catch {
+        console.error(
+          "API Response:",
+          text
+        );
 
-  alert("Server error. Check terminal.");
+        alert(
+          "Server error. Check terminal."
+        );
 
-  setAnalyzing(false);
-  return;
-}
+        return;
+      }
 
       if (data.success) {
-        setResumeUrl(data.resumeUrl);
+        setResumeUrl(
+          data.resumeUrl
+        );
+
+        // Clear previous analysis
+        // because a new resume
+        // has been uploaded.
+        setAnalysis(null);
+
+        // Reload latest data
+        await loadResumeData();
 
         alert(
           "Resume uploaded successfully."
         );
       } else {
-        alert(data.message);
+        alert(
+          data.message
+        );
       }
     } catch (error) {
       console.error(error);
 
-      alert("Upload failed.");
+      alert(
+        "Upload failed."
+      );
     } finally {
       setUploading(false);
     }
@@ -84,7 +149,9 @@ try {
       setAnalyzing(true);
 
       const userId =
-        localStorage.getItem("userId");
+        localStorage.getItem(
+          "userId"
+        );
 
       const res = await fetch(
         "/api/student/analyze-resume",
@@ -100,27 +167,40 @@ try {
         }
       );
 
-    const text = await res.text();
+      const text =
+        await res.text();
 
-console.log("API Response:", text);
+      console.log(
+        "API Response:",
+        text
+      );
 
-let data;
+      let data;
 
-try {
-  data = JSON.parse(text);
-} catch {
-  console.error("Server Response:", text);
+      try {
+        data =
+          JSON.parse(text);
+      } catch {
+        console.error(
+          "Server Response:",
+          text
+        );
 
-  alert("Internal Server Error. Check the terminal.");
+        alert(
+          "Internal Server Error. Check the terminal."
+        );
 
-  setAnalyzing(false);
-  return;
-}
+        return;
+      }
 
       if (data.success) {
         setAnalysis(
           data.analysis
         );
+
+        // Reload latest
+        // saved analysis
+        await loadResumeData();
       } else {
         alert(
           data.message
@@ -138,7 +218,7 @@ try {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6 md:p-10">
+        <div className="min-h-screen bg-gray-50 p-6 md:p-10">
       <DashboardButton
         href="/student/dashboard"
       />
@@ -210,7 +290,10 @@ try {
             onClick={
               analyzeResume
             }
-            disabled={analyzing}
+            disabled={
+              analyzing ||
+              !resumeUrl
+            }
             className="
               bg-green-600
               hover:bg-green-700
@@ -287,7 +370,7 @@ try {
             </h3>
 
             <ul className="list-disc ml-6 mt-2">
-              {analysis.strengths.map(
+              {(analysis.strengths ?? []).map(
                 (
                   item: string,
                   index: number
@@ -306,7 +389,7 @@ try {
             </h3>
 
             <ul className="list-disc ml-6 mt-2">
-              {analysis.weaknesses.map(
+              {(analysis.weaknesses ?? []).map(
                 (
                   item: string,
                   index: number
@@ -325,7 +408,7 @@ try {
             </h3>
 
             <ul className="list-disc ml-6 mt-2">
-              {analysis.missingSkills.map(
+              {(analysis.missingSkills ?? []).map(
                 (
                   item: string,
                   index: number
@@ -338,13 +421,42 @@ try {
             </ul>
           </div>
 
+          <div className="mb-6">
+            <h3 className="font-bold text-purple-600">
+              Keywords Found
+            </h3>
+
+            <div className="flex flex-wrap gap-2 mt-3">
+              {(analysis.keywordsFound ?? []).map(
+                (
+                  item: string,
+                  index: number
+                ) => (
+                  <span
+                    key={index}
+                    className="
+                      bg-indigo-100
+                      text-indigo-700
+                      px-3
+                      py-1
+                      rounded-full
+                      text-sm
+                    "
+                  >
+                    {item}
+                  </span>
+                )
+              )}
+            </div>
+          </div>
+
           <div>
             <h3 className="font-bold text-blue-600">
               Suggestions
             </h3>
 
             <ul className="list-disc ml-6 mt-2">
-              {analysis.suggestions.map(
+              {(analysis.suggestions ?? []).map(
                 (
                   item: string,
                   index: number
@@ -369,18 +481,22 @@ try {
           <li>
             ✓ Keep your resume to 1–2 pages.
           </li>
+
           <li>
             ✓ Add relevant technical
             skills.
           </li>
+
           <li>
             ✓ Highlight projects and
             internships.
           </li>
+
           <li>
             ✓ Use measurable
             achievements.
           </li>
+
           <li>
             ✓ Keep formatting clean and
             ATS-friendly.
